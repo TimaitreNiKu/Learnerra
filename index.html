@@ -1,9 +1,5 @@
-<!doctype html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Fiches cingalais</title>
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Figtree:wght@400;500;600&display=swap">
 <style>
 /* Layout: 4 pages (Accueil, Leçons, Choix du test, Test). Colonne étroite en mode mobile, deux colonnes en mode ordinateur */
@@ -150,6 +146,12 @@ h2{font-family:var(--font-display);font-weight:700;font-size:20px;margin:0}
 .result p{margin:0}
 .miss{font-size:14px;color:var(--muted)}
 
+.suggest{border-top:1px solid var(--line);padding-top:18px}
+.field{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.field label{font-size:13px;color:var(--muted)}
+.field input,.field textarea{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--fg);width:100%;min-height:44px}
+.field textarea{resize:vertical;min-height:110px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 details.su{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 14px}
 details.su summary{min-height:52px;display:flex;align-items:center;font-weight:600;cursor:pointer}
 .surow{display:flex;flex-direction:column;gap:4px;padding:10px 0;border-top:1px solid var(--line)}
@@ -157,8 +159,6 @@ details.su summary{min-height:52px;display:flex;align-items:center;font-weight:6
 .surow input{font:inherit;min-height:44px;padding:0 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);width:100%}
 @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
 </style>
-</head>
-<body>
 
 <div class="wrap">
   <div class="topbar">
@@ -192,6 +192,17 @@ details.su summary{min-height:52px;display:flex;align-items:center;font-weight:6
       </section>
     </div>
     <div class="navrow"><button class="btn primary" type="button" data-go="lecons">Suivant : les leçons</button></div>
+    <section class="suggest" aria-label="Suggestions">
+      <h2>Une suggestion ?</h2>
+      <p class="note">Écris une idée ou un problème. Seul le propriétaire du site lit les messages, et tu n'as pas besoin de compte.</p>
+      <form id="sg-form" autocomplete="off">
+        <div class="field"><label for="sg-name">Ton pseudo</label><input id="sg-name" type="text" maxlength="40" placeholder="Lucas"></div>
+        <div class="field"><label for="sg-msg">Ton message</label><textarea id="sg-msg" maxlength="1000" rows="4" placeholder="J'aimerais une leçon sur…"></textarea></div>
+        <input type="checkbox" id="sg-bot" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="navrow" style="margin-top:12px"><button class="btn primary" id="sg-send" type="submit">Envoyer la suggestion</button></div>
+        <p class="note" id="sg-out" role="status"></p>
+      </form>
+    </section>
   </section>
 
   <section class="page" id="p-lecons" hidden>
@@ -255,7 +266,9 @@ details.su summary{min-height:52px;display:flex;align-items:center;font-weight:6
 </div>
 
 <script>
-var VERSION="2.1",UPDATE_URL="version.json";
+var VERSION="2.2",UPDATE_URL="version.json";
+/* Boîte à suggestions : colle entre les guillemets ta clé gratuite Web3Forms (web3forms.com) */
+var SUGGEST_KEY="",SUGGEST_URL="https://api.web3forms.com/submit",sgLast=0;
 var LOTS=[
   {id:1,title:"Salutations",start:"2026-10-19",cards:[
     {fr:"Bonjour (formel)",si:"a-yu-bo-wan",tip:"« a-you-bow » : on s'incline pour saluer."},
@@ -665,6 +678,32 @@ document.addEventListener("change",function(e){
 });
 window.addEventListener("hashchange",function(){showPage(currentHash());});
 
+/* Boîte à suggestions */
+document.getElementById("sg-form").addEventListener("submit",function(e){
+  e.preventDefault();
+  var out=document.getElementById("sg-out"),btn=document.getElementById("sg-send");
+  var name=document.getElementById("sg-name").value.trim(),msg=document.getElementById("sg-msg").value.trim();
+  if(!name){out.textContent="Entre un pseudo.";return;}
+  if(!msg){out.textContent="Écris ton message.";return;}
+  if(document.getElementById("sg-bot").checked){return;}
+  if(!SUGGEST_KEY){out.textContent="La boîte à suggestions n'est pas encore activée.";return;}
+  if(Date.now()-sgLast<30000){out.textContent="Attends quelques secondes avant d'envoyer un autre message.";return;}
+  btn.disabled=true;out.textContent="Envoi en cours…";
+  var fd=new FormData();
+  fd.append("access_key",SUGGEST_KEY);
+  fd.append("subject","Suggestion de "+name);
+  fd.append("from_name","Fiches cingalais");
+  fd.append("name",name);
+  fd.append("message",msg);
+  fetch(SUGGEST_URL,{method:"POST",headers:{Accept:"application/json"},body:fd}).then(function(r){return r.json();}).then(function(j){
+    btn.disabled=false;
+    if(j&&j.success){sgLast=Date.now();document.getElementById("sg-msg").value="";out.textContent="Merci, ta suggestion est envoyée.";}
+    else{out.textContent="L'envoi a échoué. Réessaie dans un moment.";}
+  }).catch(function(){
+    btn.disabled=false;out.textContent="L'envoi a échoué. Vérifie ta connexion et réessaie.";
+  });
+});
+
 /* Mise à jour */
 function setUpd(msg){document.getElementById("upd-msg").textContent=msg;}
 function checkUpdate(silent){
@@ -702,6 +741,3 @@ function checkUpdate(silent){
   checkUpdate(true);
 })();
 </script>
-
-</body>
-</html>
