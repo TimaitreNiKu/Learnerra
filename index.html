@@ -1,8 +1,12 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Fiches cingalais</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Figtree:wght@400;500;600&display=swap">
 <style>
-/* Layout: une colonne étroite pensée pour le pouce. Agenda du jour en haut, fiche centrale en grand, planning du lot en bas */
+/* Layout: 4 pages (Accueil, Leçons, Choix du test, Test). Colonne étroite en mode mobile, deux colonnes en mode ordinateur */
 :root{
   --bg:#F6F5F3;
   --surface:#FFFFFF;
@@ -15,39 +19,114 @@
   --good:#2F6B3F;
   --good-bg:#E4F0E7;
   --warn-bg:#F7E4E6;
+  --late:#C0302B;
+  --late-bg:#FBE4E2;
   --font-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
   --font-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --bg:#151113;--surface:#201A1D;--fg:#F2EDEB;--muted:#A89FA3;--line:#352D31;
     --accent:#E58A97;--accent-ink:#2A0E14;--gold:#E0B450;--good:#8FD0A0;--good-bg:#1D2E23;--warn-bg:#3A1F25;
+    --late:#FF8F86;--late-bg:#3E1D1B;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --bg:#151113;--surface:#201A1D;--fg:#F2EDEB;--muted:#A89FA3;--line:#352D31;
   --accent:#E58A97;--accent-ink:#2A0E14;--gold:#E0B450;--good:#8FD0A0;--good-bg:#1D2E23;--warn-bg:#3A1F25;
+  --late:#FF8F86;--late-bg:#3E1D1B;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{
-  background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.5;
-  padding-block:20px 48px;
+  margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.5;
+  padding-block:16px 48px;
   padding-left:max(16px,env(safe-area-inset-left,0px));
   padding-right:max(16px,env(safe-area-inset-right,0px));
 }
-.wrap{max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:20px;min-width:0}
+.wrap{max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:18px;min-width:0}
+html[data-view="desktop"] .wrap{max-width:980px}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 h1{font-family:var(--font-display);font-weight:700;font-size:28px;line-height:1.1;margin:0;text-wrap:balance}
+h2{font-family:var(--font-display);font-weight:700;font-size:20px;margin:0}
 .sub{color:var(--muted);font-size:14px;margin:4px 0 0}
-.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px;gap:4px}
-.seg button{font:inherit;font-weight:600;font-size:15px;min-height:44px;border:0;border-radius:9px;background:transparent;color:var(--muted);cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
-.lots{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.lots button{font:inherit;font-weight:600;font-size:14px;min-height:44px;padding:0;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
-.lots button.later{opacity:.6}
-.lots button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);opacity:1}
-button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0}
+.empty{font-size:14px;color:var(--muted);margin:10px 0 0}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-family:var(--font-display);font-weight:700;font-size:18px}
+.viewseg{display:inline-grid;grid-template-columns:1fr 1fr;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:3px;gap:3px}
+.viewseg button{font:inherit;font-weight:600;font-size:13px;min-height:36px;padding:0 12px;border:0;border-radius:7px;background:transparent;color:var(--muted);cursor:pointer}
+.viewseg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.steps button{font:inherit;font-size:12px;font-weight:600;min-height:48px;padding:4px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
+.steps button b{font-family:var(--font-display);font-size:15px}
+.steps button[aria-current="page"]{border-color:var(--accent);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+
+.page{display:flex;flex-direction:column;gap:18px;min-width:0}
+.cols{display:flex;flex-direction:column;gap:18px;min-width:0}
+.cols>*{min-width:0}
+@media (min-width:760px){
+  html[data-view="desktop"] .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:28px;align-items:start}
+  html[data-view="desktop"] .card{min-height:360px}
+  html[data-view="desktop"] .card .fr{font-size:38px}
+}
+.stack{display:flex;flex-direction:column;gap:18px;min-width:0}
+.cols>.stack{display:contents}
+.cols #lotpick{order:1}
+.cols #learn-app{order:2}
+.cols details.su{order:3}
+.cols .planbox{order:4}
+@media (min-width:760px){html[data-view="desktop"] .cols>.stack{display:flex}}
+
+.btn{font:inherit;font-weight:600;font-size:16px;min-height:52px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer;padding:0 16px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.good{background:var(--good-bg);border-color:transparent;color:var(--good)}
+.btn.warn{background:var(--warn-bg);border-color:transparent;color:var(--accent)}
+.btn[disabled]{opacity:.45}
+.btn.small{min-height:40px;font-size:14px;padding:0 14px}
+.navrow{display:grid;grid-template-columns:1fr;gap:10px}
+.navrow.two{grid-template-columns:1fr 1fr}
+.linkbtn{font:inherit;font-weight:600;color:var(--accent);background:none;border:0;padding:0 4px;min-height:44px;cursor:pointer}
+.sumline{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.sumline b{color:var(--fg);font-weight:600}
+
+.upd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}
+.upd .note{margin:0;min-width:0;flex:1 1 180px}
+
+.langs{display:flex;flex-direction:column;gap:14px}
+.lrow{display:flex;flex-direction:column;gap:6px}
+.llab{font-size:13px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{font:inherit;font-weight:600;font-size:14px;min-height:44px;padding:0 16px;border-radius:22px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chips button[aria-disabled="true"]{opacity:.4}
+
+.plan{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.slot{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 14px;min-height:52px;cursor:pointer}
+.slot.now{border-color:var(--accent)}
+.slot input{width:22px;height:22px;accent-color:var(--accent);flex:none}
+.slot .when{font-weight:600;font-variant-numeric:tabular-nums;min-width:0}
+.slot .what{color:var(--muted);font-size:14px;margin-left:auto;text-align:right}
+.slot.done .when,.slot.done .what{text-decoration:line-through;color:var(--muted)}
+.slot.late .when{color:var(--late)}
+
+.lotgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.lotbtn{position:relative;font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-height:84px;color:var(--fg);cursor:pointer;display:flex;flex-direction:column;gap:2px;min-width:0}
+.lotbtn b{font-family:var(--font-display);font-size:16px}
+.lotbtn .t{font-size:13px;color:var(--muted)}
+.lotbtn .c{font-size:12px;color:var(--muted)}
+.lotbtn .ic{position:absolute;top:10px;right:10px;display:flex}
+.lotbtn[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.lotbtn.later{opacity:.65}
+.lotbtn.st-done{background:var(--good-bg);border-color:var(--good)}
+.lotbtn.st-done .ic{color:var(--good)}
+.lotbtn.st-late{background:var(--late-bg);border-color:var(--late)}
+.lotbtn.st-late .ic{color:var(--late)}
+
 .meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 .bar{height:4px;background:var(--line);border-radius:2px;overflow:hidden}
 .bar i{display:block;height:100%;background:var(--accent);transition:width .25s}
@@ -58,51 +137,19 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 }
 .card .q{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .card .fr{font-family:var(--font-display);font-weight:700;font-size:32px;line-height:1.15;text-wrap:balance}
+.card .fr2{font-size:22px;font-weight:600;line-height:1.2;text-wrap:balance}
+.card em.lg{font-style:normal;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:8px;font-weight:500;vertical-align:middle}
 .card .hint{font-size:14px;color:var(--muted);margin-top:12px}
 .card .ans{border-top:1px solid var(--line);margin-top:16px;padding-top:18px;width:100%;display:flex;flex-direction:column;gap:6px;align-items:center}
 .card .si{font-family:var(--font-display);font-weight:700;font-size:36px;line-height:1.1;color:var(--accent);text-wrap:balance}
 .card .tip{font-size:15px;color:var(--muted);text-wrap:balance}
 .actions{display:grid;gap:10px}
 .actions.two{grid-template-columns:1fr 1fr}
-.btn{font:inherit;font-weight:600;font-size:16px;min-height:52px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer;padding:0 16px}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.btn.good{background:var(--good-bg);border-color:transparent;color:var(--good)}
-.btn.warn{background:var(--warn-bg);border-color:transparent;color:var(--accent)}
-.btn[disabled]{opacity:.45}
 .score{font-family:var(--font-display);font-weight:700;font-size:48px;line-height:1;margin:0;font-variant-numeric:tabular-nums}
 .result{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px 20px;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;min-height:300px;justify-content:center}
 .result p{margin:0}
 .miss{font-size:14px;color:var(--muted)}
-h2{font-family:var(--font-display);font-weight:700;font-size:20px;margin:0}
-.plan{display:flex;flex-direction:column;gap:8px;margin-top:10px}
-.slot{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 14px;min-height:52px;cursor:pointer}
-.slot.now{border-color:var(--accent)}
-.slot input{width:22px;height:22px;accent-color:var(--accent);flex:none}
-.slot .when{font-weight:600;font-variant-numeric:tabular-nums;min-width:0}
-.slot .what{color:var(--muted);font-size:14px;margin-left:auto;text-align:right}
-.slot.done .when,.slot.done .what{text-decoration:line-through;color:var(--muted)}
-.note{font-size:14px;color:var(--muted);margin:10px 0 0}
-.empty{font-size:14px;color:var(--muted);margin:10px 0 0}
-:root{--late:#C0302B;--late-bg:#FBE4E2}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--late:#FF8F86;--late-bg:#3E1D1B}}
-:root[data-theme="dark"]{--late:#FF8F86;--late-bg:#3E1D1B}
-.lots button{display:flex;align-items:center;justify-content:center;gap:5px}
-.lots button[aria-pressed="true"]{box-shadow:inset 0 0 0 2px currentColor}
-.lots button.st-done{background:var(--good-bg);border-color:var(--good);color:var(--good);opacity:1}
-.lots button.st-late{background:var(--late-bg);border-color:var(--late);color:var(--late);opacity:1}
-.slot.late .when{color:var(--late)}
-.upd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}
-.upd .btn{min-height:40px;font-size:14px;padding:0 14px}
-.upd .note{margin:0;min-width:0;flex:1 1 180px}
-.langs{display:flex;flex-direction:column;gap:12px}
-.lrow{display:flex;flex-direction:column;gap:6px}
-.llab{font-size:13px;color:var(--muted)}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chips button{font:inherit;font-weight:600;font-size:14px;min-height:40px;padding:0 14px;border-radius:20px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
-.chips button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.chips button[aria-disabled="true"]{opacity:.4}
-.card .fr2{font-size:22px;font-weight:600;line-height:1.2;text-wrap:balance}
-.card em.lg{font-style:normal;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:8px;font-weight:500;vertical-align:middle}
+
 details.su{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 14px}
 details.su summary{min-height:52px;display:flex;align-items:center;font-weight:600;cursor:pointer}
 .surow{display:flex;flex-direction:column;gap:4px;padding:10px 0;border-top:1px solid var(--line)}
@@ -110,50 +157,105 @@ details.su summary{min-height:52px;display:flex;align-items:center;font-weight:6
 .surow input{font:inherit;min-height:44px;padding:0 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);width:100%}
 @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
 </style>
+</head>
+<body>
 
 <div class="wrap">
-  <header>
-    <h1>Fiches cingalais</h1>
-    <p class="sub" id="sub"></p>
-    <div class="upd">
-      <button class="btn" id="upd-btn" type="button">Mettre à jour</button>
-      <span class="note" id="upd-msg" role="status"></span>
+  <div class="topbar">
+    <span class="brand">Fiches cingalais</span>
+    <div class="viewseg" role="group" aria-label="Affichage">
+      <button type="button" data-setview="desktop" aria-pressed="false">Ordinateur</button>
+      <button type="button" data-setview="mobile" aria-pressed="true">Mobile</button>
     </div>
-  </header>
-
-  <section>
-    <h2>Aujourd'hui</h2>
-    <div class="plan" id="today"></div>
-  </section>
-
-  <div class="seg" role="group" aria-label="Mode">
-    <button id="m-learn" type="button" data-act="learn" aria-pressed="true">Apprendre</button>
-    <button id="m-test" type="button" data-act="test" aria-pressed="false">Me tester</button>
   </div>
+  <nav class="steps" id="steps" aria-label="Pages"></nav>
 
-  <section class="langs" aria-label="Langues">
-    <div class="lrow"><span class="llab">Je vois (une ou plusieurs langues)</span><div class="chips" id="src" role="group" aria-label="Langues de départ"></div></div>
-    <div class="lrow"><span class="llab">Je dois retrouver</span><div class="chips" id="tgt" role="group" aria-label="Langue à retrouver"></div></div>
+  <section class="page" id="p-accueil">
+    <div>
+      <h1>Accueil</h1>
+      <p class="sub">Version <span id="ver"></span></p>
+      <div class="upd">
+        <button class="btn small" id="upd-btn" type="button">Mettre à jour</button>
+        <span class="note" id="upd-msg" role="status"></span>
+      </div>
+    </div>
+    <div class="cols">
+      <section>
+        <h2>À faire aujourd'hui</h2>
+        <div class="plan" id="today"></div>
+      </section>
+      <section class="langs" aria-label="Langues">
+        <h2>Choisir les langues</h2>
+        <div class="lrow"><span class="llab">Je vois (une ou plusieurs langues)</span><div class="chips" id="src" role="group" aria-label="Langues de départ"></div></div>
+        <div class="lrow"><span class="llab">Je dois retrouver</span><div class="chips" id="tgt" role="group" aria-label="Langue à retrouver"></div></div>
+        <div><button class="btn small" id="swap" type="button" data-swap="1">Inverser le sens</button><p class="note" id="swap-msg"></p></div>
+      </section>
+    </div>
+    <div class="navrow"><button class="btn primary" type="button" data-go="lecons">Suivant : les leçons</button></div>
   </section>
 
-  <div class="lots" id="lots" role="group" aria-label="Lot de mots"></div>
+  <section class="page" id="p-lecons" hidden>
+    <div>
+      <h1>Leçons</h1>
+      <p class="sub" id="sub"></p>
+    </div>
+    <div class="sumline"><span id="sum1"></span><button class="linkbtn" type="button" data-go="accueil">Changer</button></div>
+    <div class="cols">
+      <div class="stack">
+        <div class="lotgrid" id="lotpick" role="group" aria-label="Leçon à apprendre"></div>
+        <section class="planbox">
+          <h2 id="plan-title">Révisions du lot</h2>
+          <div class="plan" id="plan"></div>
+          <p class="note">Un nouveau lot tous les 2 jours. Les lots précédents reviennent en révision. Mets une alarme sur ton téléphone pour chaque horaire.</p>
+        </section>
+      </div>
+      <div class="stack">
+        <div class="stack" id="learn-app"></div>
+        <details class="su">
+          <summary>Compléter le soussou</summary>
+          <p class="note">Les chiffres de 1 à 10 sont déjà remplis. Pour les autres mots, écris-les toi-même : ils restent sur ton téléphone.</p>
+          <div id="su-list"></div>
+        </details>
+      </div>
+    </div>
+    <div class="navrow two">
+      <button class="btn" type="button" data-go="accueil">Retour</button>
+      <button class="btn primary" type="button" data-go="choix">Me tester</button>
+    </div>
+  </section>
 
-  <main id="app"></main>
+  <section class="page" id="p-choix" hidden>
+    <div>
+      <h1>Choisir le test</h1>
+      <p class="sub">Touche une ou plusieurs leçons, puis lance le test.</p>
+    </div>
+    <div class="sumline"><span id="sum2"></span><button class="linkbtn" type="button" data-go="accueil">Changer</button></div>
+    <div class="lotgrid" id="testpick" role="group" aria-label="Leçon à tester"></div>
+    <div class="navrow two">
+      <button class="btn" type="button" data-tsel="started">Tous les lots commencés</button>
+      <button class="btn" type="button" data-tsel="none">Tout décocher</button>
+    </div>
+    <button class="btn primary" type="button" id="tstart" data-tstart="1">Lancer le test</button>
+    <p class="note" id="tmsg" role="status"></p>
+    <div class="navrow"><button class="btn" type="button" data-go="lecons">Retour aux leçons</button></div>
+  </section>
 
-  <details class="su">
-    <summary>Compléter le soussou</summary>
-    <p class="note">Les chiffres de 1 à 10 sont déjà remplis. Pour les autres mots, écris-les toi-même : ils restent sur ton téléphone.</p>
-    <div id="su-list"></div>
-  </details>
-
-  <section>
-    <h2 id="plan-title">Révisions du lot</h2>
-    <div class="plan" id="plan"></div>
-    <p class="note">Un nouveau lot tous les 2 jours. Les lots précédents reviennent en révision. Mets une alarme sur ton téléphone pour chaque horaire.</p>
+  <section class="page" id="p-test" hidden>
+    <div>
+      <h1>Test</h1>
+      <p class="sub" id="test-sub"></p>
+    </div>
+    <div class="sumline"><span id="sum3"></span></div>
+    <div class="stack" id="test-app"></div>
+    <div class="navrow two">
+      <button class="btn" type="button" data-go="choix">Autre leçon</button>
+      <button class="btn" type="button" data-go="lecons">Retour aux leçons</button>
+    </div>
   </section>
 </div>
 
 <script>
+var VERSION="2.1",UPDATE_URL="version.json";
 var LOTS=[
   {id:1,title:"Salutations",start:"2026-10-19",cards:[
     {fr:"Bonjour (formel)",si:"a-yu-bo-wan",tip:"« a-you-bow » : on s'incline pour saluer."},
@@ -246,13 +348,6 @@ var LANGS=[
   {id:"fr",name:"Français",to:"en français"},{id:"en",name:"English",to:"en anglais"},
   {id:"si",name:"Cingalais",to:"en cingalais"},{id:"su",name:"Soussou",to:"en soussou"}
 ];
-var SRC_OK=["fr","en","si"],LKEY="cingalais-langs-v1",SUKEY="cingalais-su-v1";
-var SRC=["fr","en"],TGT="si",suUser={};
-try{var sv=JSON.parse(localStorage.getItem(LKEY)||"null");if(sv&&sv.src&&sv.tgt){SRC=sv.src.filter(function(x){return SRC_OK.indexOf(x)>-1;});TGT=sv.tgt;}}catch(e){}
-try{suUser=JSON.parse(localStorage.getItem(SUKEY)||"{}")||{};}catch(e){suUser={};}
-if(["en","fr","si","su"].indexOf(TGT)<0){TGT="si";}
-SRC=SRC.filter(function(x){return x!==TGT;});
-if(!SRC.length){SRC=["fr","en"].filter(function(x){return x!==TGT;}).slice(0,1);}
 var TEMPLATE=[
   {d:0,t:"12:15",what:"Apprendre"},
   {d:0,t:"19:30",what:"Test rapide"},
@@ -264,25 +359,32 @@ var TEMPLATE=[
 ];
 var DAYS=["dim.","lun.","mar.","mer.","jeu.","ven.","sam."];
 var MONTHS=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
-var KEY="cingalais-done-v2",doneMap={},CUR=1;
-try{doneMap=JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){doneMap={};}
-var S={mode:"learn",deck:[],i:0,rev:false,ok:0,missed:[],done:false};
+var PAGES=["accueil","lecons","choix","test"];
+var STEP_LABELS=["Accueil","Leçons","Choisir","Test"];
+var ICON_CHECK='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>';
+var ICON_CAL='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
 
-function lot(n){for(var k=0;k<LOTS.length;k++){if(LOTS[k].id===(n||CUR))return LOTS[k];}return LOTS[0];}
-function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+var KEY="cingalais-done-v2",LKEY="cingalais-langs-v1",SUKEY="cingalais-su-v1",VKEY="cingalais-view-v1";
+var SRC_OK=["fr","en","si"];
+var doneMap={},suUser={},SRC=["fr","en"],TGT="si",CUR=1,PAGE="accueil",updNew=null;
+var S1={deck:[],i:0,rev:false};
+var T={started:false,which:null,title:"",deck:[],i:0,rev:false,ok:0,missed:[],done:false};
+var TODAY=new Date(),TODAY_K="";
+
+try{doneMap=JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){doneMap={};}
+try{suUser=JSON.parse(localStorage.getItem(SUKEY)||"{}")||{};}catch(e){suUser={};}
+try{var sv=JSON.parse(localStorage.getItem(LKEY)||"null");if(sv&&sv.src&&sv.tgt){SRC=sv.src.filter(function(x){return SRC_OK.indexOf(x)>-1;});TGT=sv.tgt;}}catch(e){}
+if(["en","fr","si","su"].indexOf(TGT)<0){TGT="si";}
+SRC=SRC.filter(function(x){return x!==TGT;});
+if(!SRC.length){SRC=["fr","en"].filter(function(x){return x!==TGT;}).slice(0,1);}
+
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");}
 function shuffle(a){a=a.slice();for(var k=a.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=a[k];a[k]=a[j];a[j]=t;}return a;}
 function addDays(iso,n){var p=iso.split("-");var d=new Date(+p[0],+p[1]-1,+p[2]);d.setDate(d.getDate()+n);return d;}
 function dkey(d){return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();}
 function dlabel(d){return DAYS[d.getDay()]+" "+d.getDate()+" "+MONTHS[d.getMonth()];}
-function sessionsOf(l){
-  return TEMPLATE.map(function(t,i){
-    var d=addDays(l.start,t.d);
-    var hm=t.t.split(":"),at=new Date(d.getFullYear(),d.getMonth(),d.getDate(),+hm[0],+hm[1]);
-    return {id:"L"+l.id+"-"+i,lot:l.id,k:dkey(d),date:d,at:at,t:t.t,what:t.what};
-  });
-}
-var TODAY=new Date(),TODAY_K=dkey(TODAY);
-
+TODAY_K=dkey(TODAY);
+function lot(n){for(var k=0;k<LOTS.length;k++){if(LOTS[k].id===(n||CUR))return LOTS[k];}return LOTS[0];}
 function langOf(id){for(var k=0;k<LANGS.length;k++){if(LANGS[k].id===id)return LANGS[k];}return LANGS[0];}
 function word(c,l){
   if(l==="fr")return c.fr;
@@ -291,12 +393,91 @@ function word(c,l){
   var u=suUser[c.fr];
   return u!==undefined?u:(SU[c.fr]||"");
 }
-function deckFor(){
+function deckFor(l){
   var ls=SRC.concat([TGT]);
-  return lot().cards.filter(function(c){return ls.every(function(l){return !!word(c,l);});});
+  return (l||lot()).cards.filter(function(c){return ls.every(function(x){return !!word(c,x);});});
 }
-function countTxt(l){var n=deckFor().length;return n===l.cards.length?n+" mots":n+" sur "+l.cards.length+" mots";}
-function saveLangs(){try{localStorage.setItem(LKEY,JSON.stringify({src:SRC,tgt:TGT}));}catch(e){}}
+function countTxt(l){var n=deckFor(l).length;return n===l.cards.length?n+" mots":n+" sur "+l.cards.length+" mots";}
+function started(l){return addDays(l.start,0)<=new Date();}
+function srcNames(){return SRC_OK.filter(function(x){return SRC.indexOf(x)>-1;}).map(function(x){return langOf(x).name;}).join(" + ");}
+function summary(){return "Je vois <b>"+esc(srcNames())+"</b>, je retrouve <b>"+esc(langOf(TGT).name)+"</b>";}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+
+function sessionsOf(l){
+  return TEMPLATE.map(function(t,i){
+    var d=addDays(l.start,t.d);
+    var hm=t.t.split(":"),at=new Date(d.getFullYear(),d.getMonth(),d.getDate(),+hm[0],+hm[1]);
+    return {id:"L"+l.id+"-"+i,lot:l.id,k:dkey(d),date:d,at:at,t:t.t,what:t.what};
+  });
+}
+function lotStatus(l){
+  if(doneMap["L"+l.id+"-"+(TEMPLATE.length-1)])return "done";
+  var now=new Date(),late=false;
+  sessionsOf(l).forEach(function(s){if(!doneMap[s.id]&&s.at<now)late=true;});
+  return late?"late":"";
+}
+
+/* Affichage ordinateur / mobile */
+function setView(v,persist){
+  document.documentElement.setAttribute("data-view",v);
+  var btns=document.querySelectorAll("[data-setview]");
+  for(var k=0;k<btns.length;k++){btns[k].setAttribute("aria-pressed",btns[k].getAttribute("data-setview")===v);}
+  var m=document.querySelector('meta[name="viewport"]');
+  if(m){m.setAttribute("content",(v==="desktop"&&screen.width<760)?"width=1024":"width=device-width, initial-scale=1, viewport-fit=cover");}
+  if(persist){try{localStorage.setItem(VKEY,v);}catch(e){}}
+}
+function initView(){
+  var v="";
+  try{v=localStorage.getItem(VKEY)||"";}catch(e){}
+  if(v!=="desktop"&&v!=="mobile"){v=(window.innerWidth>=900)?"desktop":"mobile";}
+  setView(v,false);
+}
+
+/* Navigation entre les 4 pages */
+function currentHash(){var h=(location.hash||"").replace("#","");return PAGES.indexOf(h)>-1?h:"accueil";}
+function go(p){
+  showPage(p);
+  try{if(location.hash!=="#"+p){location.hash="#"+p;}}catch(e){}
+}
+function showPage(p){
+  if(p==="test"&&!T.started){p="choix";}
+  PAGE=p;
+  PAGES.forEach(function(x){document.getElementById("p-"+x).hidden=(x!==p);});
+  renderSteps();
+  if(p==="accueil"){renderToday();renderLangs();document.getElementById("ver").textContent=VERSION;}
+  if(p==="lecons"){renderLecons();}
+  if(p==="choix"){renderChoix();}
+  if(p==="test"){renderTest();}
+  try{window.scrollTo(0,0);}catch(e){}
+}
+function renderSteps(){
+  var h="";
+  PAGES.forEach(function(p,i){
+    h+='<button type="button" data-go="'+p+'"'+(p===PAGE?' aria-current="page"':"")+'><b>'+(i+1)+'</b>'+STEP_LABELS[i]+'</button>';
+  });
+  document.getElementById("steps").innerHTML=h;
+}
+
+/* Planning et rappels */
+function slotHtml(s,withLot){
+  var d=!!doneMap[s.id],isNow=s.k===TODAY_K,late=!d&&s.at<new Date();
+  var when=withLot?s.t:dlabel(s.date)+" · "+s.t;
+  var what=withLot?s.what+" · lot "+s.lot:s.what;
+  return '<label class="slot'+(d?" done":"")+(isNow&&!withLot?" now":"")+(late?" late":"")+'"><input type="checkbox" data-id="'+s.id+'"'+(d?" checked":"")+'><span class="when">'+esc(when)+'</span><span class="what">'+esc(what)+'</span></label>';
+}
+function renderToday(){
+  var all=[];
+  LOTS.forEach(function(l){sessionsOf(l).forEach(function(s){if(s.k===TODAY_K)all.push(s);});});
+  all.sort(function(a,b){return a.t<b.t?-1:a.t>b.t?1:0;});
+  document.getElementById("today").innerHTML=all.length?all.map(function(s){return slotHtml(s,true);}).join(""):'<p class="empty">Rien de prévu aujourd\'hui. Repose-toi.</p>';
+}
+function renderPlan(){
+  document.getElementById("plan").innerHTML=sessionsOf(lot()).map(function(s){return slotHtml(s,false);}).join("");
+  document.getElementById("plan-title").textContent="Révisions du lot "+lot().id;
+}
+
+/* Choix des langues */
+function saveLangs(){save(LKEY,{src:SRC,tgt:TGT});}
 function renderLangs(){
   var h="";
   SRC_OK.forEach(function(id){h+='<button type="button" data-src="'+id+'" aria-pressed="'+(SRC.indexOf(id)>-1)+'" aria-disabled="'+(id===TGT)+'">'+langOf(id).name+'</button>';});
@@ -305,149 +486,186 @@ function renderLangs(){
   ["en","fr","si","su"].forEach(function(id){h+='<button type="button" data-tgt="'+id+'" aria-pressed="'+(id===TGT)+'">'+langOf(id).name+'</button>';});
   document.getElementById("tgt").innerHTML=h;
 }
-function renderSu(){
-  var h="";
-  lot().cards.forEach(function(c,i){
-    var v=word(c,"su").replace(/"/g,"&quot;");
-    h+='<div class="surow"><label for="su'+i+'">'+esc(c.fr)+' · '+esc(EN[c.fr]||"")+'</label><input id="su'+i+'" type="text" data-su="'+i+'" value="'+v+'" placeholder="En soussou" autocomplete="off" autocapitalize="off"></div>';
-  });
-  document.getElementById("su-list").innerHTML=h;
-}
-function restart(){
-  renderLangs();renderLots();
-  begin(S.mode,S.mode==="test"?shuffle(deckFor()):deckFor());
-}
-function begin(mode,deck){S.mode=mode;S.deck=deck;S.i=0;S.rev=false;S.ok=0;S.missed=[];S.done=false;render();}
-
-function lotStatus(l){
-  if(doneMap["L"+l.id+"-"+(TEMPLATE.length-1)])return "done";
-  var now=new Date(),late=false;
-  sessionsOf(l).forEach(function(s){if(!doneMap[s.id]&&s.at<now)late=true;});
-  return late?"late":"";
-}
-function renderLots(){
-  var h="";
-  LOTS.forEach(function(l){
-    var later=addDays(l.start,0)>TODAY,st=lotStatus(l);
-    var ic=st==="done"?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>':st==="late"?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>':"";
-    var lab="Lot "+l.id+(st==="done"?", terminé":st==="late"?", en retard":"");
-    h+='<button type="button" data-lot="'+l.id+'" aria-label="'+lab+'" class="'+(later?"later ":"")+(st?"st-"+st:"")+'" aria-pressed="'+(l.id===CUR)+'">'+l.id+ic+'</button>';
-  });
-  document.getElementById("lots").innerHTML=h;
-  var l=lot(),sd=addDays(l.start,0);
-  var when=dkey(sd)===TODAY_K?"commence aujourd'hui":(sd>TODAY?"commence "+dlabel(sd):"commencé "+dlabel(sd));
-  document.getElementById("sub").textContent="Lot "+l.id+" · "+l.title+" · "+countTxt(l)+" · "+when;
-  document.getElementById("plan-title").textContent="Révisions du lot "+l.id;
-}
-function selectLot(n){
-  CUR=n;
-  renderLangs();renderLots();renderPlan();renderSu();
-  begin(S.mode,S.mode==="test"?shuffle(deckFor()):deckFor());
+function langsChanged(msg){
+  saveLangs();renderLangs();
+  document.getElementById("swap-msg").textContent=msg||"";
+  S1.i=0;S1.rev=false;T.started=false;
 }
 
-function render(){
-  document.getElementById("m-learn").setAttribute("aria-pressed",S.mode==="learn");
-  document.getElementById("m-test").setAttribute("aria-pressed",S.mode==="test");
-  var app=document.getElementById("app"),h="",n=S.deck.length;
-  if(S.done){
-    h+='<div class="result"><p class="miss">Test terminé</p><p class="score">'+S.ok+' / '+n+'</p><p>mots retenus</p></div>';
-    h+='<div class="actions">';
-    if(S.missed.length){h+='<button class="btn primary" type="button" data-act="redo">Refaire les '+S.missed.length+' à revoir</button>';}
-    h+='<button class="btn" type="button" data-act="test">Recommencer le test</button><button class="btn" type="button" data-act="learn">Retour aux fiches</button></div>';
-    app.innerHTML=h;return;
-  }
-  if(!n){
-    app.innerHTML='<div class="result"><p>Aucun mot de ce lot n\'est disponible dans cette combinaison de langues.</p><p class="miss">Pour le soussou, ajoute les mots dans « Compléter le soussou » plus bas.</p></div>';
-    return;
-  }
-  var c=S.deck[S.i],pct=Math.round(((S.i)/n)*100);
-  h+='<div class="meta"><span>'+(S.mode==="learn"?"Apprentissage":"Test")+'</span><span>'+(S.i+1)+' / '+n+'</span></div>';
-  h+='<div class="bar" aria-hidden="true"><i style="width:'+pct+'%"></i></div>';
-  h+='<button class="card" type="button" data-act="flip" aria-label="Retourner la fiche">';
+/* Boutons de lots */
+function lotBtnHtml(l,attr,pressed){
+  var st=lotStatus(l),later=!started(l);
+  var ic=st==="done"?ICON_CHECK:st==="late"?ICON_CAL:"";
+  var label="Lot "+l.id+", "+l.title+(st==="done"?", terminé":st==="late"?", en retard":"");
+  return '<button type="button" class="lotbtn'+(later?" later":"")+(st?" st-"+st:"")+'" '+attr+'="'+l.id+'" aria-label="'+esc(label)+'"'+(pressed===null?"":' aria-pressed="'+pressed+'"')+'><span class="ic">'+ic+'</span><b>Lot '+l.id+'</b><span class="t">'+esc(l.title)+'</span><span class="c">'+countTxt(l)+'</span></button>';
+}
+
+/* Cartes */
+function cardHtml(c,rev,act){
   var to=langOf(TGT).to;
+  var h='<button class="card" type="button" data-act="'+act+'" aria-label="Retourner la fiche">';
   h+='<span class="q">'+esc(to.charAt(0).toUpperCase()+to.slice(1))+' ?</span>';
   SRC_OK.filter(function(x){return SRC.indexOf(x)>-1;}).forEach(function(id,k){
     h+='<span class="'+(k===0?"fr":"fr2")+'"><em class="lg">'+id+'</em>'+esc(word(c,id))+'</span>';
   });
   var showTip=TGT==="si"||SRC.indexOf("si")>-1;
-  if(S.rev){h+='<span class="ans"><span class="si">'+esc(word(c,TGT))+'</span>'+(showTip?'<span class="tip">'+esc(c.tip)+'</span>':'')+'</span>';}
+  if(rev){h+='<span class="ans"><span class="si">'+esc(word(c,TGT))+'</span>'+(showTip?'<span class="tip">'+esc(c.tip)+'</span>':'')+'</span>';}
   else{h+='<span class="hint">Dis-le à voix haute, puis touche la fiche.</span>';}
-  h+='</button>';
-  h+='<div class="actions'+(S.mode==="test"&&S.rev?" two":"")+'">';
-  if(S.mode==="test"){
-    if(S.rev){h+='<button class="btn warn" type="button" data-act="missed">À revoir</button><button class="btn good" type="button" data-act="known">Je savais</button>';}
-    else{h+='<button class="btn primary" type="button" data-act="flip">Voir la réponse</button>';}
-  } else {
-    h+='<button class="btn primary" type="button" data-act="'+(S.rev?"next":"flip")+'">'+(S.rev?"Fiche suivante":"Retourner")+'</button>';
-    h+='<button class="btn" type="button" data-act="prev"'+(S.i===0?" disabled":"")+'>Précédente</button>';
+  return h+'</button>';
+}
+function emptyHtml(){
+  return '<div class="result"><p>Aucun mot de cette leçon n\'est disponible dans cette combinaison de langues.</p><p class="miss">Pour le soussou, ajoute les mots dans « Compléter le soussou ».</p></div>';
+}
+
+/* Page 2 : leçons */
+function renderLecons(){
+  var l=lot(),sd=addDays(l.start,0);
+  var when=dkey(sd)===TODAY_K?"commence aujourd'hui":(sd>TODAY?"commence "+dlabel(sd):"commencé "+dlabel(sd));
+  document.getElementById("sub").textContent="Lot "+l.id+" · "+l.title+" · "+countTxt(l)+" · "+when;
+  document.getElementById("sum1").innerHTML=summary();
+  document.getElementById("lotpick").innerHTML=LOTS.map(function(x){return lotBtnHtml(x,"data-lot",x.id===CUR);}).join("");
+  renderPlan();renderSu();renderLearn();
+}
+function renderLearn(){
+  var el=document.getElementById("learn-app"),d=deckFor(),n=d.length;
+  S1.deck=d;
+  if(!n){el.innerHTML=emptyHtml();return;}
+  if(S1.i>=n){S1.i=0;}
+  var c=d[S1.i],pct=Math.round((S1.i/n)*100),h="";
+  h+='<div class="meta"><span>Apprentissage</span><span>'+(S1.i+1)+' / '+n+'</span></div>';
+  h+='<div class="bar" aria-hidden="true"><i style="width:'+pct+'%"></i></div>';
+  h+=cardHtml(c,S1.rev,"lflip");
+  h+='<div class="actions"><button class="btn primary" type="button" data-act="'+(S1.rev?"lnext":"lflip")+'">'+(S1.rev?"Fiche suivante":"Retourner")+'</button>';
+  h+='<button class="btn" type="button" data-act="lprev"'+(S1.i===0?" disabled":"")+'>Précédente</button></div>';
+  el.innerHTML=h;
+}
+function renderSu(){
+  var h="";
+  lot().cards.forEach(function(c,i){
+    h+='<div class="surow"><label for="su'+i+'">'+esc(c.fr)+' · '+esc(EN[c.fr]||"")+'</label><input id="su'+i+'" type="text" data-su="'+i+'" value="'+esc(word(c,"su"))+'" placeholder="En soussou" autocomplete="off" autocapitalize="off"></div>';
+  });
+  document.getElementById("su-list").innerHTML=h;
+}
+
+/* Page 3 : choix du test */
+var TSEL=[],TSEL_INIT=false;
+function tselUpdate(){
+  var words=0;
+  TSEL.forEach(function(id){words+=deckFor(lot(id)).length;});
+  document.getElementById("tstart").textContent=TSEL.length?"Lancer le test ("+TSEL.length+(TSEL.length>1?" lots":" lot")+" · "+words+" mots)":"Lancer le test";
+}
+function renderChoix(){
+  if(!TSEL_INIT){TSEL=[CUR];TSEL_INIT=true;}
+  document.getElementById("sum2").innerHTML=summary();
+  document.getElementById("testpick").innerHTML=LOTS.map(function(x){return lotBtnHtml(x,"data-tlot",TSEL.indexOf(x.id)>-1);}).join("");
+  document.getElementById("tmsg").textContent="";
+  tselUpdate();
+}
+function buildTest(ids){
+  var sorted=ids.slice().sort(function(a,b){return a-b;}),cards=[];
+  sorted.forEach(function(id){cards=cards.concat(deckFor(lot(id)));});
+  var title=sorted.length===1?"Lot "+sorted[0]+" · "+lot(sorted[0]).title:"Lots "+sorted.join(", ");
+  T={started:true,which:sorted,title:title,deck:shuffle(cards),i:0,rev:false,ok:0,missed:[],done:false};
+}
+
+/* Page 4 : test */
+function renderTest(){
+  document.getElementById("test-sub").textContent=T.title;
+  document.getElementById("sum3").innerHTML=summary();
+  var el=document.getElementById("test-app"),n=T.deck.length,h="";
+  if(!n){el.innerHTML=emptyHtml();return;}
+  if(T.done){
+    h+='<div class="result"><p class="miss">Test terminé</p><p class="score">'+T.ok+' / '+n+'</p><p>mots retenus</p></div>';
+    h+='<div class="actions">';
+    if(T.missed.length){h+='<button class="btn primary" type="button" data-act="tredo">Refaire les '+T.missed.length+' à revoir</button>';}
+    h+='<button class="btn" type="button" data-act="trestart">Recommencer ce test</button></div>';
+    el.innerHTML=h;return;
   }
-  h+='</div>';
-  app.innerHTML=h;
+  var c=T.deck[T.i],pct=Math.round((T.i/n)*100);
+  h+='<div class="meta"><span>Test</span><span>'+(T.i+1)+' / '+n+'</span></div>';
+  h+='<div class="bar" aria-hidden="true"><i style="width:'+pct+'%"></i></div>';
+  h+=cardHtml(c,T.rev,"tflip");
+  if(T.rev){h+='<div class="actions two"><button class="btn warn" type="button" data-act="tmiss">À revoir</button><button class="btn good" type="button" data-act="tknown">Je savais</button></div>';}
+  else{h+='<div class="actions"><button class="btn primary" type="button" data-act="tflip">Voir la réponse</button></div>';}
+  el.innerHTML=h;
 }
-function advance(){
-  if(S.i<S.deck.length-1){S.i++;S.rev=false;}
-  else if(S.mode==="test"){S.done=true;}
-  else{S.i=0;S.rev=false;}
-  render();
+function tadvance(){
+  if(T.i<T.deck.length-1){T.i++;T.rev=false;}else{T.done=true;}
+  renderTest();
 }
+
+/* Actions */
 function act(a){
-  if(a==="learn"){begin("learn",deckFor());}
-  else if(a==="test"){begin("test",shuffle(deckFor()));}
-  else if(a==="redo"){begin("test",shuffle(S.missed));}
-  else if(a==="flip"){S.rev=!S.rev;render();}
-  else if(a==="next"){advance();}
-  else if(a==="prev"){if(S.i>0){S.i--;S.rev=false;render();}}
-  else if(a==="known"){S.ok++;advance();}
-  else if(a==="missed"){S.missed.push(S.deck[S.i]);advance();}
+  if(a==="lflip"){S1.rev=!S1.rev;renderLearn();}
+  else if(a==="lnext"){S1.i=(S1.i<S1.deck.length-1)?S1.i+1:0;S1.rev=false;renderLearn();}
+  else if(a==="lprev"){if(S1.i>0){S1.i--;S1.rev=false;renderLearn();}}
+  else if(a==="tflip"){T.rev=!T.rev;renderTest();}
+  else if(a==="tknown"){T.ok++;tadvance();}
+  else if(a==="tmiss"){T.missed.push(T.deck[T.i]);tadvance();}
+  else if(a==="tredo"){T.deck=shuffle(T.missed);T.i=0;T.rev=false;T.ok=0;T.missed=[];T.done=false;renderTest();}
+  else if(a==="trestart"){buildTest(T.which);renderTest();}
 }
-document.getElementById("m-learn").parentNode.addEventListener("click",function(e){var b=e.target.closest("[data-act]");if(b)act(b.getAttribute("data-act"));});
-document.getElementById("app").addEventListener("click",function(e){var b=e.target.closest("[data-act]");if(b)act(b.getAttribute("data-act"));});
-document.getElementById("lots").addEventListener("click",function(e){var b=e.target.closest("[data-lot]");if(b)selectLot(parseInt(b.getAttribute("data-lot"),10));});
-
-document.getElementById("src").addEventListener("click",function(e){
-  var b=e.target.closest("[data-src]");if(!b)return;
-  var id=b.getAttribute("data-src");if(id===TGT)return;
-  var i=SRC.indexOf(id);
-  if(i>-1){if(SRC.length>1)SRC.splice(i,1);}else{SRC.push(id);}
-  saveLangs();restart();
+document.addEventListener("click",function(e){
+  var t=e.target.closest("[data-go],[data-act],[data-lot],[data-tlot],[data-src],[data-tgt],[data-setview],[data-swap],[data-tsel],[data-tstart],#upd-btn");
+  if(!t)return;
+  if(t.id==="upd-btn"){checkUpdate(false);return;}
+  if(t.hasAttribute("data-go")){go(t.getAttribute("data-go"));return;}
+  if(t.hasAttribute("data-act")){act(t.getAttribute("data-act"));return;}
+  if(t.hasAttribute("data-setview")){setView(t.getAttribute("data-setview"),true);return;}
+  if(t.hasAttribute("data-lot")){CUR=+t.getAttribute("data-lot");S1.i=0;S1.rev=false;renderLecons();return;}
+  if(t.hasAttribute("data-tlot")){
+    var tid=+t.getAttribute("data-tlot"),tk=TSEL.indexOf(tid);
+    if(tk>-1){TSEL.splice(tk,1);}else{TSEL.push(tid);}
+    renderChoix();return;
+  }
+  if(t.hasAttribute("data-tsel")){
+    TSEL=t.getAttribute("data-tsel")==="none"?[]:LOTS.filter(function(l){return started(l);}).map(function(l){return l.id;});
+    renderChoix();return;
+  }
+  if(t.hasAttribute("data-tstart")){
+    if(!TSEL.length){document.getElementById("tmsg").textContent="Choisis au moins un lot.";return;}
+    buildTest(TSEL.slice());go("test");return;
+  }
+  if(t.hasAttribute("data-src")){
+    var id=t.getAttribute("data-src");if(id===TGT)return;
+    var i=SRC.indexOf(id);
+    if(i>-1){if(SRC.length>1)SRC.splice(i,1);}else{SRC.push(id);}
+    langsChanged("");return;
+  }
+  if(t.hasAttribute("data-tgt")){
+    TGT=t.getAttribute("data-tgt");
+    SRC=SRC.filter(function(x){return x!==TGT;});
+    if(!SRC.length){SRC=["fr","en"].filter(function(x){return x!==TGT;}).slice(0,1);}
+    langsChanged("");return;
+  }
+  if(t.hasAttribute("data-swap")){
+    if(SRC.length!==1){document.getElementById("swap-msg").textContent="Garde une seule langue dans « Je vois » pour inverser le sens.";return;}
+    if(TGT==="su"){document.getElementById("swap-msg").textContent="Le soussou ne peut pas être une langue de départ.";return;}
+    var from=SRC[0];SRC=[TGT];TGT=from;
+    langsChanged("Sens inversé.");return;
+  }
 });
-document.getElementById("tgt").addEventListener("click",function(e){
-  var b=e.target.closest("[data-tgt]");if(!b)return;
-  TGT=b.getAttribute("data-tgt");
-  SRC=SRC.filter(function(x){return x!==TGT;});
-  if(!SRC.length){SRC=["fr","en"].filter(function(x){return x!==TGT;}).slice(0,1);}
-  saveLangs();restart();
-});
-document.getElementById("su-list").addEventListener("change",function(e){
-  var i=e.target.getAttribute("data-su");if(i===null)return;
-  var c=lot().cards[+i];
-  suUser[c.fr]=e.target.value.trim();
-  try{localStorage.setItem(SUKEY,JSON.stringify(suUser));}catch(err){}
-  renderLots();
-  if(TGT==="su"){begin(S.mode,S.mode==="test"?shuffle(deckFor()):deckFor());}
-});
-
-function slotHtml(s,withLot){
-  var d=!!doneMap[s.id],isNow=s.k===TODAY_K,late=!d&&s.at<new Date();
-  var when=withLot?s.t:dlabel(s.date)+" · "+s.t;
-  var what=withLot?s.what+" · lot "+s.lot:s.what;
-  return '<label class="slot'+(d?" done":"")+(isNow&&!withLot?" now":"")+(late?" late":"")+'"><input type="checkbox" data-id="'+s.id+'"'+(d?" checked":"")+'><span class="when">'+esc(when)+'</span><span class="what">'+esc(what)+'</span></label>';
-}
-function renderPlan(){
-  document.getElementById("plan").innerHTML=sessionsOf(lot()).map(function(s){return slotHtml(s,false);}).join("");
-  var all=[];
-  LOTS.forEach(function(l){sessionsOf(l).forEach(function(s){if(s.k===TODAY_K)all.push(s);});});
-  all.sort(function(a,b){return a.t<b.t?-1:a.t>b.t?1:0;});
-  document.getElementById("today").innerHTML=all.length?all.map(function(s){return slotHtml(s,true);}).join(""):'<p class="empty">Rien de prévu aujourd\'hui. Repose-toi.</p>';
-}
 document.addEventListener("change",function(e){
-  var id=e.target.getAttribute&&e.target.getAttribute("data-id");if(!id)return;
-  doneMap[id]=e.target.checked;
-  try{localStorage.setItem(KEY,JSON.stringify(doneMap));}catch(err){}
-  renderPlan();renderLots();
+  var el=e.target;
+  var id=el.getAttribute&&el.getAttribute("data-id");
+  if(id){
+    doneMap[id]=el.checked;save(KEY,doneMap);
+    if(PAGE==="accueil"){renderToday();}
+    if(PAGE==="lecons"){renderPlan();document.getElementById("lotpick").innerHTML=LOTS.map(function(x){return lotBtnHtml(x,"data-lot",x.id===CUR);}).join("");}
+    return;
+  }
+  var si=el.getAttribute&&el.getAttribute("data-su");
+  if(si!==null&&si!==undefined){
+    var c=lot().cards[+si];
+    suUser[c.fr]=el.value.trim();save(SUKEY,suUser);
+    document.getElementById("lotpick").innerHTML=LOTS.map(function(x){return lotBtnHtml(x,"data-lot",x.id===CUR);}).join("");
+    document.getElementById("sub").textContent=document.getElementById("sub").textContent.replace(/·[^·]*mots/,"· "+countTxt(lot()));
+    if(TGT==="su"){renderLearn();}
+  }
 });
+window.addEventListener("hashchange",function(){showPage(currentHash());});
 
-var VERSION="1.0",UPDATE_URL="version.json",updNew=null;
+/* Mise à jour */
 function setUpd(msg){document.getElementById("upd-msg").textContent=msg;}
 function checkUpdate(silent){
   var btn=document.getElementById("upd-btn");
@@ -474,12 +692,16 @@ function checkUpdate(silent){
     if(!silent){setUpd("Impossible de vérifier. Ouvre la page depuis son adresse web, avec le fichier version.json à côté.");}
   });
 }
-document.getElementById("upd-btn").addEventListener("click",function(){checkUpdate(false);});
 
 (function(){
   var pick=1;
-  LOTS.forEach(function(l){if(addDays(l.start,0)<=TODAY){pick=l.id;}});
-  selectLot(pick);
+  LOTS.forEach(function(l){if(started(l)){pick=l.id;}});
+  CUR=pick;
+  initView();
+  showPage(currentHash());
   checkUpdate(true);
 })();
 </script>
+
+</body>
+</html>
