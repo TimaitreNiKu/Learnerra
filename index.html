@@ -1,5 +1,9 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Fiches cingalais</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Figtree:wght@400;500;600&display=swap">
 <style>
 /* Layout: 4 pages (Accueil, Leçons, Choix du test, Test). Colonne étroite en mode mobile, deux colonnes en mode ordinateur */
@@ -147,6 +151,15 @@ h2{font-family:var(--font-display);font-weight:700;font-size:20px;margin:0}
 .miss{font-size:14px;color:var(--muted)}
 
 .suggest{border-top:1px solid var(--line);padding-top:18px}
+.acct{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.acct:empty{display:none}
+.acct b{color:var(--fg)}
+.acct .btn{min-height:36px;font-size:13px;padding:0 12px}
+.sgcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.sghead{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.sghead b{color:var(--fg);font-size:15px}
+.sgcard p{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:10px;background:var(--accent);color:var(--accent-ink);margin-left:6px;vertical-align:middle}
 .field{display:flex;flex-direction:column;gap:6px;margin-top:12px}
 .field label{font-size:13px;color:var(--muted)}
 .field input,.field textarea{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--fg);width:100%;min-height:44px}
@@ -159,6 +172,8 @@ details.su summary{min-height:52px;display:flex;align-items:center;font-weight:6
 .surow input{font:inherit;min-height:44px;padding:0 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);width:100%}
 @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
 </style>
+</head>
+<body>
 
 <div class="wrap">
   <div class="topbar">
@@ -168,6 +183,7 @@ details.su summary{min-height:52px;display:flex;align-items:center;font-weight:6
       <button type="button" data-setview="mobile" aria-pressed="true">Mobile</button>
     </div>
   </div>
+  <div class="acct" id="acct"></div>
   <nav class="steps" id="steps" aria-label="Pages"></nav>
 
   <section class="page" id="p-accueil">
@@ -263,12 +279,45 @@ details.su summary{min-height:52px;display:flex;align-items:center;font-weight:6
       <button class="btn" type="button" data-go="lecons">Retour aux leçons</button>
     </div>
   </section>
+
+  <section class="page" id="p-login" hidden>
+    <div>
+      <h1>Connexion</h1>
+      <p class="sub">Un pseudo et un mot de passe pour sauvegarder ta progression et la retrouver sur tous tes appareils.</p>
+    </div>
+    <form id="lg-form" autocomplete="on">
+      <div class="field"><label for="lg-user">Pseudo</label><input id="lg-user" type="text" autocomplete="username" autocapitalize="off" spellcheck="false" maxlength="20"></div>
+      <div class="field"><label for="lg-pass">Mot de passe (8 caractères minimum)</label><input id="lg-pass" type="password" autocomplete="current-password" maxlength="72"></div>
+      <div class="navrow two" style="margin-top:12px">
+        <button class="btn primary" type="submit" id="lg-login">Se connecter</button>
+        <button class="btn" type="button" id="lg-signup">Créer le compte</button>
+      </div>
+      <p class="note" id="lg-out" role="status"></p>
+    </form>
+    <div><button class="linkbtn" type="button" id="lg-skip">Continuer sans compte</button></div>
+  </section>
+
+  <section class="page" id="p-admin" hidden>
+    <div>
+      <h1>Admin</h1>
+      <p class="sub" id="ad-sub"></p>
+    </div>
+    <div class="navrow two">
+      <button class="btn small" type="button" id="ad-refresh">Actualiser</button>
+      <button class="btn small" type="button" data-go="accueil">Retour au site</button>
+    </div>
+    <section><h2>Suggestions <span id="ad-sgn"></span></h2><div class="stack" id="ad-sg"></div></section>
+    <section><h2>Utilisateurs</h2><div class="stack" id="ad-us"></div></section>
+    <section><h2>Le site</h2><div id="ad-site"></div></section>
+  </section>
 </div>
 
 <script>
-var VERSION="2.2",UPDATE_URL="version.json";
-/* Boîte à suggestions : colle entre les guillemets ta clé gratuite Web3Forms (web3forms.com) */
-var SUGGEST_KEY="",SUGGEST_URL="https://api.web3forms.com/submit",sgLast=0;
+var VERSION="2.3",UPDATE_URL="version.json";
+/* Service en ligne (Supabase) : colle ici l'adresse du projet et la clé publique, entre les guillemets */
+var SB_URL="https://javlxdyqgmfzzmvtzvdx.supabase.co",SB_KEY="sb_publishable_OHlh_b0FGkF9P-JcFsIzfw_E5J24yXZ";
+var SESSION=null,syncTimer=null,sgLast=0,sgPending=null,adminData=null;
+var SESKEY="cingalais-session-v1",SKIPKEY="cingalais-skip-login-v1";
 var LOTS=[
   {id:1,title:"Salutations",start:"2026-10-19",cards:[
     {fr:"Bonjour (formel)",si:"a-yu-bo-wan",tip:"« a-you-bow » : on s'incline pour saluer."},
@@ -373,6 +422,7 @@ var TEMPLATE=[
 var DAYS=["dim.","lun.","mar.","mer.","jeu.","ven.","sam."];
 var MONTHS=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
 var PAGES=["accueil","lecons","choix","test"];
+var PAGES_ALL=PAGES.concat(["login","admin"]);
 var STEP_LABELS=["Accueil","Leçons","Choisir","Test"];
 var ICON_CHECK='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>';
 var ICON_CAL='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
@@ -414,7 +464,7 @@ function countTxt(l){var n=deckFor(l).length;return n===l.cards.length?n+" mots"
 function started(l){return addDays(l.start,0)<=new Date();}
 function srcNames(){return SRC_OK.filter(function(x){return SRC.indexOf(x)>-1;}).map(function(x){return langOf(x).name;}).join(" + ");}
 function summary(){return "Je vois <b>"+esc(srcNames())+"</b>, je retrouve <b>"+esc(langOf(TGT).name)+"</b>";}
-function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}syncSoon();}
 
 function sessionsOf(l){
   return TEMPLATE.map(function(t,i){
@@ -447,17 +497,22 @@ function initView(){
 }
 
 /* Navigation entre les 4 pages */
-function currentHash(){var h=(location.hash||"").replace("#","");return PAGES.indexOf(h)>-1?h:"accueil";}
+function currentHash(){var h=(location.hash||"").replace("#","");return PAGES_ALL.indexOf(h)>-1?h:"accueil";}
 function go(p){
   showPage(p);
   try{if(location.hash!=="#"+p){location.hash="#"+p;}}catch(e){}
 }
 function showPage(p){
   if(p==="test"&&!T.started){p="choix";}
+  if(p==="admin"&&!(SESSION&&SESSION.is_admin)){p="accueil";}
+  if(p==="login"&&!sbOn()){p="accueil";}
   PAGE=p;
-  PAGES.forEach(function(x){document.getElementById("p-"+x).hidden=(x!==p);});
+  PAGES_ALL.forEach(function(x){document.getElementById("p-"+x).hidden=(x!==p);});
+  document.getElementById("steps").hidden=(PAGES.indexOf(p)<0);
   renderSteps();
-  if(p==="accueil"){renderToday();renderLangs();document.getElementById("ver").textContent=VERSION;}
+  if(p==="login"){setLg("");}
+  if(p==="admin"){loadAdmin();}
+  if(p==="accueil"){renderToday();renderLangs();document.getElementById("ver").textContent=VERSION;prefillName();}
   if(p==="lecons"){renderLecons();}
   if(p==="choix"){renderChoix();}
   if(p==="test"){renderTest();}
@@ -619,9 +674,11 @@ function act(a){
   else if(a==="trestart"){buildTest(T.which);renderTest();}
 }
 document.addEventListener("click",function(e){
-  var t=e.target.closest("[data-go],[data-act],[data-lot],[data-tlot],[data-src],[data-tgt],[data-setview],[data-swap],[data-tsel],[data-tstart],#upd-btn");
+  var t=e.target.closest("[data-go],[data-act],[data-lot],[data-tlot],[data-src],[data-tgt],[data-setview],[data-swap],[data-tsel],[data-tstart],[data-logout],[data-sgdel],#upd-btn");
   if(!t)return;
   if(t.id==="upd-btn"){checkUpdate(false);return;}
+  if(t.hasAttribute("data-logout")){logout();return;}
+  if(t.hasAttribute("data-sgdel")){delSuggestion(+t.getAttribute("data-sgdel"));return;}
   if(t.hasAttribute("data-go")){go(t.getAttribute("data-go"));return;}
   if(t.hasAttribute("data-act")){act(t.getAttribute("data-act"));return;}
   if(t.hasAttribute("data-setview")){setView(t.getAttribute("data-setview"),true);return;}
@@ -676,7 +733,7 @@ document.addEventListener("change",function(e){
     if(TGT==="su"){renderLearn();}
   }
 });
-window.addEventListener("hashchange",function(){showPage(currentHash());});
+window.addEventListener("hashchange",function(){if(currentHash()!==PAGE){showPage(currentHash());}});
 
 /* Boîte à suggestions */
 document.getElementById("sg-form").addEventListener("submit",function(e){
@@ -686,23 +743,134 @@ document.getElementById("sg-form").addEventListener("submit",function(e){
   if(!name){out.textContent="Entre un pseudo.";return;}
   if(!msg){out.textContent="Écris ton message.";return;}
   if(document.getElementById("sg-bot").checked){return;}
-  if(!SUGGEST_KEY){out.textContent="La boîte à suggestions n'est pas encore activée.";return;}
+  if(!sbOn()){out.textContent="La boîte à suggestions n'est pas encore activée.";return;}
   if(Date.now()-sgLast<30000){out.textContent="Attends quelques secondes avant d'envoyer un autre message.";return;}
   btn.disabled=true;out.textContent="Envoi en cours…";
-  var fd=new FormData();
-  fd.append("access_key",SUGGEST_KEY);
-  fd.append("subject","Suggestion de "+name);
-  fd.append("from_name","Fiches cingalais");
-  fd.append("name",name);
-  fd.append("message",msg);
-  fetch(SUGGEST_URL,{method:"POST",headers:{Accept:"application/json"},body:fd}).then(function(r){return r.json();}).then(function(j){
-    btn.disabled=false;
-    if(j&&j.success){sgLast=Date.now();document.getElementById("sg-msg").value="";out.textContent="Merci, ta suggestion est envoyée.";}
-    else{out.textContent="L'envoi a échoué. Réessaie dans un moment.";}
-  }).catch(function(){
-    btn.disabled=false;out.textContent="L'envoi a échoué. Vérifie ta connexion et réessaie.";
+  rpc("app_submit_suggestion",{p_username:name,p_message:msg}).then(function(){
+    btn.disabled=false;sgLast=Date.now();document.getElementById("sg-msg").value="";out.textContent="Merci, ta suggestion est envoyée.";
+  }).catch(function(err){
+    btn.disabled=false;out.textContent=errMsg(err);
   });
 });
+
+/* Comptes et mode admin (service en ligne Supabase) */
+function sbOn(){return !!(SB_URL&&SB_KEY);}
+function rpc(name,body){
+  var h={"apikey":SB_KEY,"Content-Type":"application/json"};
+  if(SB_KEY.indexOf("eyJ")===0){h["Authorization"]="Bearer "+SB_KEY;}
+  return fetch(SB_URL.replace(/\/$/,"")+"/rest/v1/rpc/"+name,{method:"POST",headers:h,body:JSON.stringify(body||{})}).then(function(r){
+    return r.text().then(function(t){
+      var j=null;try{j=t?JSON.parse(t):null;}catch(e){}
+      if(!r.ok){var er=new Error((j&&j.message)||"Erreur");er.code=j&&j.code;er.status=r.status;throw er;}
+      return j;
+    });
+  });
+}
+function errMsg(e){
+  if(e&&e.code==="P0001")return e.message;
+  if(e&&e.code==="23505")return "Ce pseudo est déjà pris.";
+  return "Le service ne répond pas. Réessaie dans un moment.";
+}
+function loadSession(){try{SESSION=JSON.parse(localStorage.getItem(SESKEY)||"null");}catch(e){SESSION=null;}}
+function saveSession(){try{if(SESSION){localStorage.setItem(SESKEY,JSON.stringify(SESSION));}else{localStorage.removeItem(SESKEY);}}catch(e){}}
+function snapshot(){return {done:doneMap,su:suUser,langs:{src:SRC,tgt:TGT}};}
+function syncSoon(){
+  if(!SESSION||!sbOn())return;
+  clearTimeout(syncTimer);
+  syncTimer=setTimeout(function(){
+    rpc("app_save_progress",{p_token:SESSION.token,p_progress:snapshot()}).catch(function(e){
+      if(e&&e.code==="P0001"){SESSION=null;saveSession();renderAccount();}
+    });
+  },1500);
+}
+function applyServer(p){
+  p=p||{};
+  var d=p.done||{};Object.keys(d).forEach(function(k){if(d[k]){doneMap[k]=true;}});
+  var s=p.su||{};Object.keys(s).forEach(function(k){if(s[k]&&suUser[k]===undefined){suUser[k]=s[k];}});
+  var l=p.langs;
+  if(l&&l.tgt&&["en","fr","si","su"].indexOf(l.tgt)>-1&&l.src&&l.src.length){
+    TGT=l.tgt;SRC=l.src.filter(function(x){return SRC_OK.indexOf(x)>-1&&x!==TGT;});
+    if(!SRC.length){SRC=["fr","en"].filter(function(x){return x!==TGT;}).slice(0,1);}
+    T.started=false;S1.i=0;S1.rev=false;
+  }
+  try{
+    localStorage.setItem(KEY,JSON.stringify(doneMap));
+    localStorage.setItem(SUKEY,JSON.stringify(suUser));
+    localStorage.setItem(LKEY,JSON.stringify({src:SRC,tgt:TGT}));
+  }catch(e){}
+}
+function renderAccount(){
+  var el=document.getElementById("acct");
+  if(!sbOn()){el.innerHTML="";return;}
+  if(SESSION){
+    el.innerHTML='<span>Connecté : <b>'+esc(SESSION.username)+'</b>'+(SESSION.is_admin?'<span class="badge">admin</span>':'')+'</span>'+(SESSION.is_admin?'<button class="btn" type="button" data-go="admin">Admin</button>':'')+'<button class="btn" type="button" data-logout="1">Déconnexion</button>';
+  }else{
+    el.innerHTML='<button class="btn" type="button" data-go="login">Se connecter</button>';
+  }
+}
+function prefillName(){var el=document.getElementById("sg-name");if(el&&!el.value&&SESSION){el.value=SESSION.username;}}
+function setLg(msg){document.getElementById("lg-out").textContent=msg;}
+function authDone(res){
+  SESSION={token:res.token,username:res.username,is_admin:!!res.is_admin};saveSession();
+  applyServer(res.progress);
+  try{localStorage.removeItem(SKIPKEY);}catch(e){}
+  renderAccount();syncSoon();go("accueil");
+}
+function doAuth(kind){
+  var u=document.getElementById("lg-user").value.trim(),p=document.getElementById("lg-pass").value;
+  if(!u||!p){setLg("Entre ton pseudo et ton mot de passe.");return;}
+  var b1=document.getElementById("lg-login"),b2=document.getElementById("lg-signup");
+  b1.disabled=true;b2.disabled=true;setLg("Un instant…");
+  rpc(kind==="signup"?"app_signup":"app_login",{p_username:u,p_password:p}).then(function(res){
+    b1.disabled=false;b2.disabled=false;
+    if(res&&res.error){setLg(res.error);return;}
+    document.getElementById("lg-pass").value="";setLg("");authDone(res);
+  }).catch(function(e){b1.disabled=false;b2.disabled=false;setLg(errMsg(e));});
+}
+function logout(){
+  var tok=SESSION&&SESSION.token;
+  SESSION=null;saveSession();renderAccount();
+  if(tok&&sbOn()){rpc("app_logout",{p_token:tok}).catch(function(){});}
+  go("accueil");
+}
+function fmtDate(iso){
+  var d=new Date(iso);if(isNaN(d))return "";
+  var h=d.getHours(),m=d.getMinutes();
+  return dlabel(d)+" "+(h<10?"0":"")+h+":"+(m<10?"0":"")+m;
+}
+function loadAdmin(){
+  if(!SESSION)return;
+  document.getElementById("ad-sub").textContent="Chargement…";
+  rpc("app_admin_overview",{p_token:SESSION.token}).then(function(data){adminData=data;renderAdmin();}).catch(function(e){
+    document.getElementById("ad-sub").textContent=errMsg(e);
+  });
+}
+function renderAdmin(){
+  var d=adminData||{suggestions:[],users:[]},words=0;
+  LOTS.forEach(function(l){words+=l.cards.length;});
+  document.getElementById("ad-sub").textContent="Connecté en tant que "+SESSION.username;
+  document.getElementById("ad-sgn").textContent="("+d.suggestions.length+")";
+  document.getElementById("ad-sg").innerHTML=d.suggestions.length?d.suggestions.map(function(s){
+    return '<article class="sgcard"><div class="sghead"><b>'+esc(s.username)+'</b><span>'+esc(fmtDate(s.created_at))+'</span></div><p>'+esc(s.message)+'</p><div class="navrow"><button class="btn small" type="button" data-sgdel="'+s.id+'">'+(sgPending===s.id?"Confirmer la suppression":"Supprimer")+'</button></div></article>';
+  }).join(""):'<p class="empty">Aucune suggestion pour le moment.</p>';
+  document.getElementById("ad-us").innerHTML=d.users.length?d.users.map(function(u){
+    var done=(u.progress&&u.progress.done)?u.progress.done:{},n=0,fin=0;
+    Object.keys(done).forEach(function(k){if(done[k]){n++;if(/^L\d+-6$/.test(k)){fin++;}}});
+    return '<article class="sgcard"><div class="sghead"><b>'+esc(u.username)+(u.is_admin?'<span class="badge">admin</span>':'')+'</b><span>créé le '+esc(fmtDate(u.created_at))+'</span></div><p>'+n+' séances cochées · '+fin+' lots terminés · dernière activité '+esc(fmtDate(u.updated_at))+'</p></article>';
+  }).join(""):'<p class="empty">Aucun compte.</p>';
+  document.getElementById("ad-site").innerHTML='<p>Version '+esc(VERSION)+' · '+LOTS.length+' lots · '+words+' mots · '+(sbOn()?"service en ligne actif":"service en ligne non configuré")+'</p>';
+}
+function delSuggestion(id){
+  if(sgPending!==id){sgPending=id;renderAdmin();return;}
+  sgPending=null;
+  rpc("app_admin_delete_suggestion",{p_token:SESSION.token,p_id:id}).then(function(){loadAdmin();}).catch(function(e){
+    document.getElementById("ad-sub").textContent=errMsg(e);
+  });
+}
+document.getElementById("lg-form").addEventListener("submit",function(e){e.preventDefault();doAuth("login");});
+document.getElementById("lg-signup").addEventListener("click",function(){doAuth("signup");});
+document.getElementById("lg-skip").addEventListener("click",function(){try{localStorage.setItem(SKIPKEY,"1");}catch(e){}go("accueil");});
+document.getElementById("ad-refresh").addEventListener("click",loadAdmin);
 
 /* Mise à jour */
 function setUpd(msg){document.getElementById("upd-msg").textContent=msg;}
@@ -737,7 +905,25 @@ function checkUpdate(silent){
   LOTS.forEach(function(l){if(started(l)){pick=l.id;}});
   CUR=pick;
   initView();
+  loadSession();
+  renderAccount();
   showPage(currentHash());
   checkUpdate(true);
+  if(sbOn()){
+    if(SESSION){
+      rpc("app_me",{p_token:SESSION.token}).then(function(me){
+        if(!me){SESSION=null;saveSession();}
+        else{SESSION.username=me.username;SESSION.is_admin=!!me.is_admin;saveSession();applyServer(me.progress);syncSoon();}
+        renderAccount();showPage(PAGE);
+      }).catch(function(){});
+    }else{
+      var skipped=false;
+      try{skipped=localStorage.getItem(SKIPKEY)==="1";}catch(e){}
+      if(!skipped){go("login");}
+    }
+  }
 })();
 </script>
+
+</body>
+</html>
