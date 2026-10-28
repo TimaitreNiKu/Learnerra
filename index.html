@@ -12,7 +12,7 @@
 <script>
 /* Lanceur : ouvre la version du site que tu as installée. Elle ne change que si tu cliques sur « Mettre à jour ». */
 (function(){
-  var PK="cingalais-pinned-v1",FIRST="2.5",pinned=null;
+  var PK="cingalais-pinned-v1",FIRST="2.5.1",pinned=null;
   try{pinned=localStorage.getItem(PK);}catch(e){}
   if(pinned&&!/^[0-9.]+$/.test(pinned)){pinned=null;}
   function open(v){location.replace("app/"+v+".html"+location.hash);}
