@@ -1,4 +1,4 @@
 {
-  "version": "2.3",
-  "notes": "Comptes, mode admin et boîte à suggestions."
+  "version": "2.5",
+  "notes": "Suggestions en tickets privés avec réponses (connexion obligatoire)."
 }
