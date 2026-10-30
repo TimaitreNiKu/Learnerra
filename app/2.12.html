@@ -1,0 +1,1461 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fiches cingalais</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout: 4 pages (Accueil, Leçons, Choix du test, Test). Colonne étroite en mode mobile, deux colonnes en mode ordinateur */
+:root{
+  --bg:#F6F5F3;
+  --surface:#FFFFFF;
+  --fg:#1F1A1C;
+  --muted:#6B6366;
+  --line:#E3DFDC;
+  --accent:#8A2433;
+  --accent-ink:#FFFFFF;
+  --gold:#9A6F10;
+  --good:#2F6B3F;
+  --good-bg:#E4F0E7;
+  --warn-bg:#F7E4E6;
+  --late:#C0302B;
+  --late-bg:#FBE4E2;
+  --font-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --font-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#151113;--surface:#201A1D;--fg:#F2EDEB;--muted:#A89FA3;--line:#352D31;
+    --accent:#E58A97;--accent-ink:#2A0E14;--gold:#E0B450;--good:#8FD0A0;--good-bg:#1D2E23;--warn-bg:#3A1F25;
+    --late:#FF8F86;--late-bg:#3E1D1B;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#151113;--surface:#201A1D;--fg:#F2EDEB;--muted:#A89FA3;--line:#352D31;
+  --accent:#E58A97;--accent-ink:#2A0E14;--gold:#E0B450;--good:#8FD0A0;--good-bg:#1D2E23;--warn-bg:#3A1F25;
+  --late:#FF8F86;--late-bg:#3E1D1B;
+  color-scheme:dark;
+}
+/* Thèmes de couleur (rose = thème de base, sans attribut) */
+:root[data-palette="green"]{--bg:#F2F6F2;--surface:#FFFFFF;--fg:#17201A;--muted:#5F6E64;--line:#DDE6DF;--accent:#1F6B45;--accent-ink:#FFFFFF;--warn-bg:#E3F0E6;}
+@media (prefers-color-scheme:dark){:root[data-palette="green"]:not([data-theme="light"]){--bg:#101612;--surface:#18211B;--fg:#E9F0EA;--muted:#9AAA9F;--line:#2A3A2F;--accent:#7BCB95;--accent-ink:#0B2214;--warn-bg:#1F3326;}}
+:root[data-palette="green"][data-theme="dark"]{--bg:#101612;--surface:#18211B;--fg:#E9F0EA;--muted:#9AAA9F;--line:#2A3A2F;--accent:#7BCB95;--accent-ink:#0B2214;--warn-bg:#1F3326;}
+:root[data-palette="blue"]{--bg:#F1F5F9;--surface:#FFFFFF;--fg:#14202B;--muted:#5B6B7A;--line:#DCE5ED;--accent:#1F5FA8;--accent-ink:#FFFFFF;--warn-bg:#E2EDF8;}
+@media (prefers-color-scheme:dark){:root[data-palette="blue"]:not([data-theme="light"]){--bg:#0F151C;--surface:#17202A;--fg:#E8EEF4;--muted:#94A5B6;--line:#2A3846;--accent:#7DB4EE;--accent-ink:#0A1D33;--warn-bg:#1C2E42;}}
+:root[data-palette="blue"][data-theme="dark"]{--bg:#0F151C;--surface:#17202A;--fg:#E8EEF4;--muted:#94A5B6;--line:#2A3846;--accent:#7DB4EE;--accent-ink:#0A1D33;--warn-bg:#1C2E42;}
+:root[data-palette="ceylon"]{--bg:#F8F3EA;--surface:#FFFDF8;--fg:#231A10;--muted:#75675A;--line:#E8DDCB;--accent:#B3541A;--accent-ink:#FFFFFF;--warn-bg:#F8E6D6;}
+@media (prefers-color-scheme:dark){:root[data-palette="ceylon"]:not([data-theme="light"]){--bg:#18130E;--surface:#221B14;--fg:#F4ECE1;--muted:#B0A292;--line:#3A2F23;--accent:#F0A35E;--accent-ink:#2B1606;--warn-bg:#3A2616;}}
+:root[data-palette="ceylon"][data-theme="dark"]{--bg:#18130E;--surface:#221B14;--fg:#F4ECE1;--muted:#B0A292;--line:#3A2F23;--accent:#F0A35E;--accent-ink:#2B1606;--warn-bg:#3A2616;}
+.themes{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.themes b{color:var(--fg)}
+.sw{width:40px;height:40px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0;background:var(--c);box-shadow:inset 0 0 0 3px var(--surface)}
+.sw[aria-pressed="true"]{border-color:var(--fg)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.5;
+  padding-block:16px 48px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+.wrap{max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:18px;min-width:0}
+html[data-view="desktop"] .wrap{max-width:980px}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+h1{font-family:var(--font-display);font-weight:700;font-size:28px;line-height:1.1;margin:0;text-wrap:balance}
+h2{font-family:var(--font-display);font-weight:700;font-size:20px;margin:0}
+.sub{color:var(--muted);font-size:14px;margin:4px 0 0}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0}
+.empty{font-size:14px;color:var(--muted);margin:10px 0 0}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-family:var(--font-display);font-weight:700;font-size:18px}
+.viewseg{display:inline-grid;grid-template-columns:1fr 1fr;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:3px;gap:3px}
+.viewseg button{font:inherit;font-weight:600;font-size:13px;min-height:36px;padding:0 12px;border:0;border-radius:7px;background:transparent;color:var(--muted);cursor:pointer}
+.viewseg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.steps button{font:inherit;font-size:12px;font-weight:600;min-height:48px;padding:4px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
+.steps button b{font-family:var(--font-display);font-size:15px}
+.steps button[aria-current="page"]{border-color:var(--accent);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+
+.page{display:flex;flex-direction:column;gap:18px;min-width:0}
+.cols{display:flex;flex-direction:column;gap:18px;min-width:0}
+.cols>*{min-width:0}
+@media (min-width:760px){
+  html[data-view="desktop"] .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:28px;align-items:start}
+  html[data-view="desktop"] .card{min-height:360px}
+  html[data-view="desktop"] .card .fr{font-size:38px}
+}
+.stack{display:flex;flex-direction:column;gap:18px;min-width:0}
+.cols>.stack{display:contents}
+.cols #lotpick{order:1}
+.cols #learn-app{order:2}
+.cols details.su{order:3}
+.cols .planbox{order:4}
+@media (min-width:760px){html[data-view="desktop"] .cols>.stack{display:flex}}
+
+.btn{font:inherit;font-weight:600;font-size:16px;min-height:52px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer;padding:0 16px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.good{background:var(--good-bg);border-color:transparent;color:var(--good)}
+.btn.warn{background:var(--warn-bg);border-color:transparent;color:var(--accent)}
+.btn[disabled]{opacity:.45}
+.btn.small{min-height:40px;font-size:14px;padding:0 14px}
+.navrow{display:grid;grid-template-columns:1fr;gap:10px}
+.navrow.two{grid-template-columns:1fr 1fr}
+.linkbtn{font:inherit;font-weight:600;color:var(--accent);background:none;border:0;padding:0 4px;min-height:44px;cursor:pointer}
+.sumline{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.sumline b{color:var(--fg);font-weight:600}
+
+.upd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}
+.upd .note{margin:0;min-width:0;flex:1 1 180px}
+
+.langs{display:flex;flex-direction:column;gap:14px}
+.lrow{display:flex;flex-direction:column;gap:6px}
+.llab{font-size:13px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{font:inherit;font-weight:600;font-size:14px;min-height:44px;padding:0 16px;border-radius:22px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chips button[aria-disabled="true"]{opacity:.4}
+
+.plan{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.slot{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 14px;min-height:52px;cursor:pointer}
+.slot.now{border-color:var(--accent)}
+.slot input{width:22px;height:22px;accent-color:var(--accent);flex:none}
+.slot .when{font-weight:600;font-variant-numeric:tabular-nums;min-width:0}
+.slot .what{color:var(--muted);font-size:14px;margin-left:auto;text-align:right}
+.slot.done .when,.slot.done .what{text-decoration:line-through;color:var(--muted)}
+.slot.late .when{color:var(--late)}
+
+.lotgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.lotbtn{position:relative;font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-height:84px;color:var(--fg);cursor:pointer;display:flex;flex-direction:column;gap:2px;min-width:0}
+.lotbtn b{font-family:var(--font-display);font-size:16px}
+.lotbtn .t{font-size:13px;color:var(--muted)}
+.lotbtn .c{font-size:12px;color:var(--muted)}
+.lotbtn .ic{position:absolute;top:10px;right:10px;display:flex}
+.lotbtn[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.lotbtn.later{opacity:.65}
+.lotbtn.st-done{background:var(--good-bg);border-color:var(--good)}
+.lotbtn.st-done .ic{color:var(--good)}
+.lotbtn.st-late{background:var(--late-bg);border-color:var(--late)}
+.lotbtn.st-late .ic{color:var(--late)}
+
+.meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{height:4px;background:var(--line);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .25s}
+.card{
+  width:100%;font:inherit;color:inherit;text-align:center;cursor:pointer;
+  background:var(--surface);border:1px solid var(--line);border-radius:20px;
+  min-height:300px;padding:28px 20px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;
+}
+.card .q{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.card .fr{font-family:var(--font-display);font-weight:700;font-size:32px;line-height:1.15;text-wrap:balance}
+.card .fr2{font-size:22px;font-weight:600;line-height:1.2;text-wrap:balance}
+.card em.lg{font-style:normal;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:8px;font-weight:500;vertical-align:middle}
+.card .hint{font-size:14px;color:var(--muted);margin-top:12px}
+.card .ans{border-top:1px solid var(--line);margin-top:16px;padding-top:18px;width:100%;display:flex;flex-direction:column;gap:6px;align-items:center}
+.card .si{font-family:var(--font-display);font-weight:700;font-size:36px;line-height:1.1;color:var(--accent);text-wrap:balance}
+.card .tip{font-size:15px;color:var(--muted);text-wrap:balance}
+.actions{display:grid;gap:10px}
+.actions.two{grid-template-columns:1fr 1fr}
+.score{font-family:var(--font-display);font-weight:700;font-size:48px;line-height:1;margin:0;font-variant-numeric:tabular-nums}
+.result{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px 20px;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;min-height:300px;justify-content:center}
+.result p{margin:0}
+.miss{font-size:14px;color:var(--muted)}
+
+.suggest{border-top:1px solid var(--line);padding-top:18px}
+.acct{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.acct:empty{display:none}
+.acct b{color:var(--fg)}
+.acct .btn{min-height:36px;font-size:13px;padding:0 12px}
+.sgcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.sghead{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.sghead b{color:var(--fg);font-size:15px}
+.sgcard p{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:10px;background:var(--accent);color:var(--accent-ink);margin-left:6px;vertical-align:middle}
+.field{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.field label{font-size:13px;color:var(--muted)}
+.field input,.field textarea{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--fg);width:100%;min-height:44px}
+.field textarea{resize:vertical;min-height:110px}
+.tkrow{display:flex;flex-direction:column;gap:6px;text-align:left;width:100%;font:inherit;color:inherit;cursor:pointer;min-height:56px}
+.tkrow .t1{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.tkrow .t1 b{overflow-wrap:anywhere}
+.tkrow .t2{font-size:13px;color:var(--muted)}
+.st{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:10px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.st.open{border-color:var(--accent);color:var(--accent)}
+.msg{border-left:3px solid var(--line)}
+.msg.adm{border-left-color:var(--accent)}
+.chips.tkf{margin-bottom:4px}
+details.su{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 14px}
+details.su summary{min-height:52px;display:flex;align-items:center;font-weight:600;cursor:pointer}
+.surow{display:flex;flex-direction:column;gap:4px;padding:10px 0;border-top:1px solid var(--line)}
+.surow label{font-size:13px;color:var(--muted)}
+.surow input{font:inherit;min-height:44px;padding:0 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);width:100%}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+
+/* ===== Décor et animations ===== */
+.wrap{position:relative;z-index:1}
+.deco{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.deco::before,.deco::after{content:"";position:absolute;width:70vmax;height:70vmax;border-radius:50%;filter:blur(40px);animation:drift 22s ease-in-out infinite alternate}
+.deco::before{left:-30vmax;top:-30vmax;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 16%,transparent),transparent)}
+.deco::after{right:-30vmax;bottom:-30vmax;background:radial-gradient(closest-side,color-mix(in srgb,var(--gold) 14%,transparent),transparent);animation-duration:28s}
+.deco>svg{position:absolute;color:var(--accent);opacity:.09;animation:float var(--t,12s) ease-in-out infinite alternate}
+.deco .d1{width:clamp(170px,32vw,340px);right:-20px;bottom:30px}
+.deco .d2{width:84px;left:-8px;top:24%;--t:9s}
+.deco .d3{width:56px;right:7%;top:14%;--t:11s;transform:scaleX(-1)}
+.deco .d4{width:clamp(90px,14vw,150px);left:6%;bottom:12%;--t:15s;opacity:.07}
+.deco .d5{width:46px;left:40%;top:6%;--t:13s;opacity:.07}
+@keyframes drift{to{transform:translate(8vmax,6vmax) scale(1.15)}}
+@keyframes float{from{translate:0 -10px;rotate:-5deg}to{translate:0 14px;rotate:6deg}}
+.lotus .pt{transform-box:view-box;transform-origin:24px 40px;transform:rotate(var(--r));opacity:calc(1 - var(--i)*.2)}
+.lotus.bloom .pt{animation:bloom 1.1s cubic-bezier(.2,.8,.3,1) both;animation-delay:calc(var(--i)*.12s + .1s)}
+@keyframes bloom{from{transform:rotate(0deg) scale(.15);opacity:0}}
+.brandrow{display:flex;align-items:center;gap:8px}
+.brandrow .lotus{width:30px;height:30px;color:var(--accent);animation:sway 5s ease-in-out infinite alternate;transform-origin:50% 90%}
+@keyframes sway{from{rotate:-6deg}to{rotate:6deg}}
+h1.ph{display:flex;align-items:center;gap:10px}
+.ico{width:30px;height:30px;flex:none;color:var(--accent);fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:bob 3.2s ease-in-out infinite alternate}
+@keyframes bob{from{translate:0 -2px;rotate:-6deg}to{translate:0 2px;rotate:6deg}}
+.hero{position:relative}
+.hero .lotus.big{position:absolute;right:0;top:-8px;width:84px;height:84px;color:var(--accent);pointer-events:none}
+.hero h1,.hero .sub{padding-right:92px}
+.progress{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 16px}
+.progress .ring{width:56px;height:56px;flex:none;transform:rotate(-90deg)}
+.progress .rb{fill:none;stroke:var(--line);stroke-width:5}
+.progress .rf{fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;stroke-dasharray:113.1;stroke-dashoffset:113.1;transition:stroke-dashoffset 1.2s cubic-bezier(.2,.8,.3,1)}
+.progress b{display:block;font-family:var(--font-display);font-size:20px;line-height:1.1}
+.progress span{font-size:13px;color:var(--muted)}
+.page:not([hidden])>*{animation:rise .5s cubic-bezier(.2,.8,.3,1) both}
+.page:not([hidden])>*:nth-child(2){animation-delay:.06s}
+.page:not([hidden])>*:nth-child(3){animation-delay:.12s}
+.page:not([hidden])>*:nth-child(4){animation-delay:.18s}
+.page:not([hidden])>*:nth-child(5){animation-delay:.24s}
+.page:not([hidden])>*:nth-child(n+6){animation-delay:.3s}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+h2::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:middle;animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.5);opacity:.55}}
+.btn,.lotbtn,.slot,.sgcard,.steps button,.chips button,.sw{transition:transform .18s,box-shadow .2s,background-color .2s,border-color .2s}
+@media (hover:hover){
+  .btn:hover,.lotbtn:hover,.slot:hover,.sgcard.tkrow:hover,.steps button:hover,.chips button:hover{transform:translateY(-2px);box-shadow:0 6px 16px -8px color-mix(in srgb,var(--accent) 55%,transparent)}
+  .sw:hover{transform:scale(1.15)}
+}
+.btn:active,.lotbtn:active,.slot:active,.chips button:active,.sw:active{transform:scale(.96)}
+.btn.primary{position:relative;overflow:hidden}
+.btn.primary::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.28) 50%,transparent 60%);transform:translateX(-120%);animation:shine 5s ease-in-out infinite}
+@keyframes shine{0%,70%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.card{animation:cardin .45s cubic-bezier(.2,.8,.3,1) both;box-shadow:0 14px 30px -20px color-mix(in srgb,var(--accent) 60%,transparent)}
+@keyframes cardin{from{opacity:.2;transform:perspective(700px) rotateY(-80deg) scale(.96)}}
+.card .si{animation:rise .5s .1s both}
+.bar i{background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent) 60%,var(--gold)));background-size:200% 100%;animation:slide 2.4s linear infinite}
+@keyframes slide{to{background-position:-200% 0}}
+.slot input:checked{animation:tick .35s cubic-bezier(.3,1.6,.5,1)}
+@keyframes tick{from{transform:scale(.4)}}
+.lotbtn.st-done .ic{animation:pop .6s cubic-bezier(.3,1.6,.5,1) both}
+.lotbtn.st-late .ic{animation:wobble 2.6s ease-in-out infinite}
+@keyframes pop{from{transform:scale(0) rotate(-90deg)}}
+@keyframes wobble{0%,80%,100%{transform:rotate(0)}85%{transform:rotate(-12deg)}92%{transform:rotate(10deg)}}
+.result{animation:pop2 .6s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes pop2{from{opacity:0;transform:scale(.85)}}
+.result .trophy{width:54px;height:54px;color:var(--gold);fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;animation:bob 2.4s ease-in-out infinite alternate}
+.steps button[aria-current="page"] b{display:inline-block;animation:pulse 2.6s ease-in-out infinite}
+.st.open{animation:glow 2.4s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}}
+.sayrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sayrow .btn.small{display:inline-flex;align-items:center;gap:6px}
+.sayrow .auto{margin-left:auto;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px;cursor:pointer}
+.sayrow .auto input{accent-color:var(--accent);width:18px;height:18px}
+.planbox{margin-top:12px}
+.andlist{display:flex;flex-direction:column;gap:8px}
+.andlist a{text-decoration:none;display:flex;align-items:center;justify-content:center;text-align:center}
+.iosh{font-size:14px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 14px;margin-top:2px}
+.iosh summary{min-height:36px;display:flex;align-items:center;font-weight:600;cursor:pointer;color:var(--fg)}
+.iosh ol{padding-left:20px;margin:6px 0}
+.planbox .navrow{flex-direction:column}
+.sndpanel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.sndrow{display:flex;gap:8px;flex-wrap:wrap}
+.filebtn{display:inline-flex;align-items:center;cursor:pointer}
+.sndpanel .note{margin:8px 0 0}
+.ico.sm{width:20px;height:20px;animation:none}
+.btn:disabled{opacity:.45;cursor:default}
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:60}
+.confetti i{position:absolute;top:-16px;width:8px;height:14px;border-radius:2px;background:var(--c);animation:fall var(--d) cubic-bezier(.25,.6,.4,1) forwards}
+@keyframes fall{to{transform:translate(var(--x),108vh) rotate(var(--r))}}
+@media (max-width:520px){.hero .lotus.big{width:68px;height:68px}.hero h1,.hero .sub{padding-right:76px}.ico{width:26px;height:26px}.deco .d1{bottom:10px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.progress .rf{transition:none}.confetti{display:none}}
+</style>
+</head>
+<body>
+
+<div class="deco" aria-hidden="true"><svg class="lotus d1" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><g fill="currentColor"><ellipse class="pt" cx="24" cy="26" rx="5.5" ry="14" style="--r:-64deg;--i:2"/><ellipse class="pt" cx="24" cy="26" rx="5.5" ry="14" style="--r:-32deg;--i:1"/><ellipse class="pt" cx="24" cy="26" rx="5.5" ry="14" style="--r:0deg;--i:0"/><ellipse class="pt" cx="24" cy="26" rx="5.5" ry="14" style="--r:32deg;--i:1"/><ellipse class="pt" cx="24" cy="26" rx="5.5" ry="14" style="--r:64deg;--i:2"/></g><path d="M4 43c6.7-3 13.3-3 20 0s13.3 3 20 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".5"/></svg><svg class="d2" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2C5.5 8 4 15 12 22c8-7 6.5-14 0-20z" fill="currentColor"/><path d="M12 6v14" stroke="var(--bg)" stroke-width="1" fill="none"/></svg><svg class="d3" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2C5.5 8 4 15 12 22c8-7 6.5-14 0-20z" fill="currentColor"/><path d="M12 6v14" stroke="var(--bg)" stroke-width="1" fill="none"/></svg><svg class="d4" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="50" cy="50" r="46"/><circle cx="50" cy="50" r="32"/><circle cx="50" cy="50" r="18"/></g></svg><svg class="d5" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2C5.5 8 4 15 12 22c8-7 6.5-14 0-20z" fill="currentColor"/><path d="M12 6v14" stroke="var(--bg)" stroke-width="1" fill="none"/></svg></div>
+
+<div class="wrap">
+  <div class="topbar">
+    <span class="brandrow"><svg class="lotus " viewBox="0 0 48 48" aria-hidden="true" focusable="false"><g fill="currentColor"><ellipse class="pt" cx="24" cy="26" rx="5.5" ry="14" style="--r:-64deg;--i:2"/><ellipse class="pt" cx="24" cy="26" rx="5.5" ry="14" style="--r:-32deg;--i:1"/><ellipse class="pt" cx="24" cy="26" rx="5.5" ry="14" style="--r:0deg;--i:0"/><ellipse class="pt" cx="24" cy="26" rx="5.5" ry="14" style="--r:32deg;--i:1"/><ellipse class="pt" cx="24" cy="26" rx="5.5" ry="14" style="--r:64deg;--i:2"/></g><path d="M4 43c6.7-3 13.3-3 20 0s13.3 3 20 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".5"/></svg><span class="brand">Fiches cingalais</span></span>
+    <div class="viewseg" role="group" aria-label="Affichage">
+      <button type="button" data-setview="desktop" aria-pressed="false">Ordinateur</button>
+      <button type="button" data-setview="mobile" aria-pressed="true">Mobile</button>
+    </div>
+  </div>
+  <div class="themes" id="themes"></div>
+  <div class="acct" id="acct"></div>
+  <nav class="steps" id="steps" aria-label="Pages"></nav>
+
+  <section class="page" id="p-accueil">
+    <div class="hero">
+      <svg class="lotus big bloom" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><g fill="currentColor"><ellipse class="pt" cx="24" cy="26" rx="5.5" ry="14" style="--r:-64deg;--i:2"/><ellipse class="pt" cx="24" cy="26" rx="5.5" ry="14" style="--r:-32deg;--i:1"/><ellipse class="pt" cx="24" cy="26" rx="5.5" ry="14" style="--r:0deg;--i:0"/><ellipse class="pt" cx="24" cy="26" rx="5.5" ry="14" style="--r:32deg;--i:1"/><ellipse class="pt" cx="24" cy="26" rx="5.5" ry="14" style="--r:64deg;--i:2"/></g><path d="M4 43c6.7-3 13.3-3 20 0s13.3 3 20 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".5"/></svg>
+      <h1 class="ph"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg><span>Accueil</span></h1>
+      <p class="sub">Version <span id="ver"></span></p>
+      <div class="upd">
+        <button class="btn small" id="upd-btn" type="button">Mettre à jour</button>
+        <span class="note" id="upd-msg" role="status"></span>
+      </div>
+    </div>
+    <div class="progress" id="prog" aria-live="polite"><svg class="ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="rb" cx="22" cy="22" r="18"/><circle class="rf" id="ringf" cx="22" cy="22" r="18"/></svg><div><b id="ring-n"></b><span>lots terminés</span></div></div>
+    <div class="cols">
+      <section>
+        <h2>À faire aujourd'hui</h2>
+        <div class="plan" id="today"></div>
+        <div class="planbox" id="planbox"></div>
+      </section>
+      <section class="langs" aria-label="Langues">
+        <h2>Choisir les langues</h2>
+        <div class="lrow"><span class="llab">Je vois (une ou plusieurs langues)</span><div class="chips" id="src" role="group" aria-label="Langues de départ"></div></div>
+        <div class="lrow"><span class="llab">Je dois retrouver</span><div class="chips" id="tgt" role="group" aria-label="Langue à retrouver"></div></div>
+        <div><button class="btn small" id="swap" type="button" data-swap="1">Inverser le sens</button><p class="note" id="swap-msg"></p><p class="note" id="lang-note"></p></div>
+      </section>
+    </div>
+    <div class="navrow"><button class="btn primary" type="button" data-go="lecons">Suivant : les leçons</button></div>
+    <section class="suggest" aria-label="Suggestions">
+      <h2>Une suggestion ?</h2>
+      <p class="note">Une idée ou un problème ? Ouvre un ticket. Seuls toi et l'administrateur pouvez le lire, et vous pouvez vous répondre dans le même fil. Il faut être connecté.</p>
+      <div class="navrow" style="margin-top:12px"><button class="btn primary" type="button" data-go="tickets" id="home-tk">Mes suggestions</button></div>
+    </section>
+  </section>
+
+  <section class="page" id="p-lecons" hidden>
+    <div>
+      <h1 class="ph"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 21.5V4.5M9 7h6"/></svg><span>Leçons</span></h1>
+      <p class="sub" id="sub"></p>
+    </div>
+    <div class="sumline"><span id="sum1"></span><button class="linkbtn" type="button" data-go="accueil">Changer</button></div>
+    <div class="cols">
+      <div class="stack">
+        <div class="lotgrid" id="lotpick" role="group" aria-label="Leçon à apprendre"></div>
+        <section class="planbox">
+          <h2 id="plan-title">Révisions du lot</h2>
+          <div class="plan" id="plan"></div>
+          <p class="note">Un nouveau lot tous les 2 jours. Les lots précédents reviennent en révision. Mets une alarme sur ton téléphone pour chaque horaire.</p>
+        </section>
+      </div>
+      <div class="stack">
+        <div class="stack" id="learn-app"></div>
+        <details class="su">
+          <summary>Compléter le soussou</summary>
+          <p class="note">Les chiffres de 1 à 10 sont déjà remplis. Pour les autres mots, écris-les toi-même : ils restent sur ton téléphone.</p>
+          <div id="su-list"></div>
+        </details>
+      </div>
+    </div>
+    <div class="navrow two">
+      <button class="btn" type="button" data-go="accueil">Retour</button>
+      <button class="btn primary" type="button" data-go="choix">Me tester</button>
+    </div>
+  </section>
+
+  <section class="page" id="p-choix" hidden>
+    <div>
+      <h1 class="ph"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1.2 1.2L6.8 5M3.5 12l1.2 1.2L6.8 11M3.5 18l1.2 1.2L6.8 17"/></svg><span>Choisir le test</span></h1>
+      <p class="sub">Touche une ou plusieurs leçons, puis lance le test.</p>
+    </div>
+    <div class="sumline"><span id="sum2"></span><button class="linkbtn" type="button" data-go="accueil">Changer</button></div>
+    <div class="lotgrid" id="testpick" role="group" aria-label="Leçon à tester"></div>
+    <div class="navrow two">
+      <button class="btn" type="button" data-tsel="started">Tous les lots commencés</button>
+      <button class="btn" type="button" data-tsel="none">Tout décocher</button>
+    </div>
+    <button class="btn primary" type="button" id="tstart" data-tstart="1">Lancer le test</button>
+    <p class="note" id="tmsg" role="status"></p>
+    <div class="navrow"><button class="btn" type="button" data-go="lecons">Retour aux leçons</button></div>
+  </section>
+
+  <section class="page" id="p-test" hidden>
+    <div>
+      <h1 class="ph"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg><span>Test</span></h1>
+      <p class="sub" id="test-sub"></p>
+    </div>
+    <div class="sumline"><span id="sum3"></span></div>
+    <div class="stack" id="test-app"></div>
+    <div class="navrow two">
+      <button class="btn" type="button" data-go="choix">Autre leçon</button>
+      <button class="btn" type="button" data-go="lecons">Retour aux leçons</button>
+    </div>
+  </section>
+
+  <section class="page" id="p-login" hidden>
+    <div>
+      <h1 class="ph"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3M14 9l2 2"/></svg><span>Connexion</span></h1>
+      <p class="sub">Un pseudo et un mot de passe pour sauvegarder ta progression et la retrouver sur tous tes appareils.</p>
+    </div>
+    <form id="lg-form" autocomplete="on">
+      <div class="field"><label for="lg-user">Pseudo</label><input id="lg-user" type="text" autocomplete="username" autocapitalize="off" spellcheck="false" maxlength="20"></div>
+      <div class="field"><label for="lg-pass">Mot de passe (8 caractères minimum)</label><input id="lg-pass" type="password" autocomplete="current-password" maxlength="72"></div>
+      <div class="navrow two" style="margin-top:12px">
+        <button class="btn primary" type="submit" id="lg-login">Se connecter</button>
+        <button class="btn" type="button" id="lg-signup">Créer le compte</button>
+      </div>
+      <p class="note" id="lg-out" role="status"></p>
+    </form>
+    <div><button class="linkbtn" type="button" id="lg-skip">Continuer sans compte</button></div>
+  </section>
+
+  <section class="page" id="p-tickets" hidden>
+    <div>
+      <h1 class="ph"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.4A8 8 0 1 1 21 12z"/></svg><span>Suggestions</span></h1>
+      <p class="sub" id="tk-sub"></p>
+    </div>
+    <div id="tk-app"></div>
+    <p class="note" id="tk-out" role="status"></p>
+  </section>
+
+  <section class="page" id="p-admin" hidden>
+    <div>
+      <h1 class="ph"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/><path d="M9 12l2 2 4-4"/></svg><span>Admin</span></h1>
+      <p class="sub" id="ad-sub"></p>
+    </div>
+    <div class="navrow two">
+      <button class="btn small" type="button" id="ad-refresh">Actualiser</button>
+      <button class="btn small" type="button" data-go="accueil">Retour au site</button>
+    </div>
+    <section><h2>Suggestions <span id="ad-sgn"></span></h2><div class="navrow"><button class="btn primary" type="button" data-go="tickets">Ouvrir les tickets</button></div></section>
+    <section><h2>Utilisateurs</h2><div class="stack" id="ad-us"></div></section>
+    <section><h2>Le site</h2><div id="ad-site"></div></section>
+  </section>
+</div>
+
+<script>
+var VERSION="2.12",PINKEY="cingalais-pinned-v1";
+var IN_APP=/\/app\/[^\/]*$/.test(location.pathname),UPDATE_URL=IN_APP?"../version.json":"version.json";
+if(IN_APP){try{localStorage.setItem(PINKEY,VERSION);}catch(e){}}
+/* Service en ligne (Supabase) : colle ici l'adresse du projet et la clé publique, entre les guillemets */
+var SB_URL="https://javlxdyqgmfzzmvtzvdx.supabase.co",SB_KEY="sb_publishable_OHlh_b0FGkF9P-JcFsIzfw_E5J24yXZ";
+var SESSION=null,syncTimer=null,adminData=null,NEXT=null,TK={view:"list",list:null,cur:null,filter:"open",delArm:false};
+var SESKEY="cingalais-session-v1",SKIPKEY="cingalais-skip-login-v1";
+var LOTS=[
+  {id:1,title:"Salutations",start:"2026-10-19",cards:[
+    {fr:"Bonjour (formel)",si:"a-yu-bo-wan",tip:"« a-you-bow » : on s'incline pour saluer."},
+    {fr:"Comment ça va ?",si:"ko-ho-ma-da",tip:"« Coco, ma Dada, ça va ? »"},
+    {fr:"Merci",si:"is-tou-ti",tip:"« Ça y est, tout y est, merci ! »"},
+    {fr:"Oui",si:"o",tip:"Un « oh ! » d'accord."},
+    {fr:"Non",si:"nè",tip:"Proche de « nan », comme un refus."}
+  ]},
+  {id:2,title:"Moi, toi, politesse",start:"2026-10-21",cards:[
+    {fr:"Je / moi",si:"ma-ma",tip:"Comme « maman » : on répète la syllabe."},
+    {fr:"Tu / toi",si:"o-ya",tip:"« Oh ! ya », on interpelle quelqu'un."},
+    {fr:"S'il vous plaît",si:"ka-rou-na-ka-ra",tip:"Quatre syllabes régulières, accent doux."},
+    {fr:"Pardon / excusez-moi",si:"sa-ma-wén-na",tip:"Imagine que tu bouscules quelqu'un : « sa-ma-wén-na »."},
+    {fr:"Au revoir",si:"gui-yot én-na",tip:"Deux petits mots : « guiyot » puis « énna »."}
+  ]},
+  {id:3,title:"Se présenter",start:"2026-10-23",cards:[
+    {fr:"Mon nom est…",si:"ma-gué na-ma",tip:"« na-ma » ressemble à « nom »."},
+    {fr:"Quel est ton nom ?",si:"o-ya-gué na-ma mo-kak-da",tip:"Tu reconnais « o-ya » (toi) et « na-ma » (nom)."},
+    {fr:"Je ne comprends pas",si:"ma-ta té-rén-né na-ha",tip:"« na-ha » à la fin veut dire « pas »."},
+    {fr:"Parle lentement",si:"hé-min ka-tha ka-ran-na",tip:"« hé-min » : pense à « doucement »."},
+    {fr:"Bonne nuit",si:"sou-ba ra-tri-yak",tip:"« ra-tri » ressemble à « nuit » : comme « ratri » en sanskrit."}
+  ]},
+  {id:4,title:"Chiffres 1 à 5",start:"2026-10-25",cards:[
+    {fr:"Un (1)",si:"é-ka",tip:"Pense à « écho » : un seul son qui revient."},
+    {fr:"Deux (2)",si:"dé-ka",tip:"Rime avec « é-ka » : seule la première lettre change."},
+    {fr:"Trois (3)",si:"tou-na",tip:"Comme le thon : trois thons dans l'assiette."},
+    {fr:"Quatre (4)",si:"ha-ta-ra",tip:"Trois syllabes : c'est le plus long des cinq."},
+    {fr:"Cinq (5)",si:"pa-ha",tip:"Un petit mot pour cinq doigts."}
+  ]},
+  {id:5,title:"Chiffres 6 à 10",start:"2026-10-27",cards:[
+    {fr:"Six (6)",si:"ha-ya",tip:"Ne confonds pas avec ha-ta-ra (4)."},
+    {fr:"Sept (7)",si:"ha-tha",tip:"Même début que six : « ha- ». Le « th » se dit comme un t."},
+    {fr:"Huit (8)",si:"a-ta",tip:"Court : deux syllabes, comme « a-ta »."},
+    {fr:"Neuf (9)",si:"na-wa-ya",tip:"Trois syllabes qui glissent, finit par « -ya »."},
+    {fr:"Dix (10)",si:"da-ha-ya",tip:"Finit comme six et neuf : « -ya »."}
+  ]},
+  {id:6,title:"La famille",start:"2026-10-29",cards:[
+    {fr:"Maman",si:"am-ma",tip:"Presque comme « maman », en deux syllabes."},
+    {fr:"Papa",si:"tat-ta",tip:"Comme « tata », avec un double t appuyé."},
+    {fr:"Grande sœur",si:"ak-ka",tip:"Un k appuyé au milieu."},
+    {fr:"Grand frère",si:"aï-ya",tip:"Comme « aïe, ya ! »"},
+    {fr:"Petit frère",si:"mal-li",tip:"Rime avec « Mali »."}
+  ]},
+  {id:7,title:"Manger et boire",start:"2026-10-31",cards:[
+    {fr:"Eau",si:"wa-tou-ra",tip:"Proche de « water » en anglais."},
+    {fr:"Riz / repas",si:"bat",tip:"Le riz, c'est la base de chaque repas."},
+    {fr:"Pain",si:"pan",tip:"Presque comme « pain »."},
+    {fr:"J'ai faim",si:"ma-ta ba-da gin-ni",tip:"« ba-da » = ventre, « gin-ni » = feu : le ventre brûle."},
+    {fr:"J'ai soif",si:"ma-ta pi-pa-saï",tip:"« ma-ta » = à moi, « pi-pa-saï » = soif."}
+  ]},
+  {id:8,title:"Poser des questions",start:"2026-11-02",cards:[
+    {fr:"Où ?",si:"ko-hé-da",tip:"Même début que « ko-ho-ma-da » (comment ça va)."},
+    {fr:"Combien ?",si:"ki-ya-da",tip:"Pense à « qui y a-da ? »"},
+    {fr:"Quoi ?",si:"mo-kak-da",tip:"Tu l'as déjà vu dans « quel est ton nom »."},
+    {fr:"Bon / bien",si:"hon-da",tip:"Comme la marque de moto : c'est bon."},
+    {fr:"Mauvais",si:"na-ra-ka",tip:"Le contraire de « hon-da »."}
+  ]},
+  {id:9,title:"Le couple et la maison",start:"2026-11-04",cards:[
+    {fr:"Je t'aime",si:"ma-ma o-ya-ta a-da-ré",tip:"« ma-ma » (moi), « o-ya-ta » (à toi), « a-da-ré » (amour)."},
+    {fr:"Joli / beau",si:"las-sa-na",tip:"Comme « lasagne » : c'est joli."},
+    {fr:"Très",si:"bo-ho-ma",tip:"Tu l'as déjà vu dans « bo-ho-ma is-tou-ti »."},
+    {fr:"Maison",si:"gué-da-ra",tip:"Trois syllabes égales : gué-da-ra."},
+    {fr:"Aller",si:"yan-na",tip:"Le contraire de « én-na » (venir)."}
+  ]},
+  {id:10,title:"Le temps",start:"2026-11-06",cards:[
+    {fr:"Aujourd'hui",si:"a-da",tip:"Deux syllabes courtes."},
+    {fr:"Demain",si:"hé-ta",tip:"Comme « eh, ta ! » : à demain, toi."},
+    {fr:"Hier",si:"i-yé",tip:"Presque « ié », rapide."},
+    {fr:"Maintenant",si:"dèn",tip:"Un seul son, sec."},
+    {fr:"Beaucoup",si:"go-dak",tip:"Pense à « godasse » : beaucoup de godasses."}
+  ]}
+];
+var EN={
+  "Bonjour (formel)":"Hello (formal)","Comment ça va ?":"How are you?","Merci":"Thank you","Oui":"Yes","Non":"No",
+  "Je / moi":"I / me","Tu / toi":"You","S'il vous plaît":"Please","Pardon / excusez-moi":"Sorry / excuse me","Au revoir":"Goodbye",
+  "Mon nom est…":"My name is…","Quel est ton nom ?":"What is your name?","Je ne comprends pas":"I don't understand","Parle lentement":"Speak slowly","Bonne nuit":"Good night",
+  "Un (1)":"One (1)","Deux (2)":"Two (2)","Trois (3)":"Three (3)","Quatre (4)":"Four (4)","Cinq (5)":"Five (5)",
+  "Six (6)":"Six (6)","Sept (7)":"Seven (7)","Huit (8)":"Eight (8)","Neuf (9)":"Nine (9)","Dix (10)":"Ten (10)",
+  "Maman":"Mom","Papa":"Dad","Grande sœur":"Older sister","Grand frère":"Older brother","Petit frère":"Younger brother",
+  "Eau":"Water","Riz / repas":"Rice / meal","Pain":"Bread","J'ai faim":"I'm hungry","J'ai soif":"I'm thirsty",
+  "Où ?":"Where?","Combien ?":"How much?","Quoi ?":"What?","Bon / bien":"Good","Mauvais":"Bad",
+  "Je t'aime":"I love you","Joli / beau":"Pretty / beautiful","Très":"Very","Maison":"House","Aller":"To go",
+  "Aujourd'hui":"Today","Demain":"Tomorrow","Hier":"Yesterday","Maintenant":"Now","Beaucoup":"A lot"
+};
+var SU={
+  "Un (1)":"kérén (ké-rén)","Deux (2)":"fírín (fi-rin)","Trois (3)":"sàxán (sa-khan)","Quatre (4)":"náání (naa-ni)","Cinq (5)":"súlí (sou-li)",
+  "Six (6)":"sénní (sén-ni)","Sept (7)":"sólófèré (so-lo-fé-ré)","Huit (8)":"sólómásàxán (so-lo-ma-sa-khan)","Neuf (9)":"sólómánáání (so-lo-ma-naa-ni)","Dix (10)":"fuú (fou)"
+};
+var JA={
+  "Bonjour (formel)":"こんにちは (konnichiwa)","Comment ça va ?":"お元気ですか (o-genki desu ka)","Merci":"ありがとう (arigatō)","Oui":"はい (hai)","Non":"いいえ (iie)",
+  "Je / moi":"私 (watashi)","Tu / toi":"あなた (anata)","S'il vous plaît":"お願いします (onegai shimasu)","Pardon / excusez-moi":"すみません (sumimasen)","Au revoir":"さようなら (sayōnara)",
+  "Mon nom est…":"私の名前は…です (watashi no namae wa … desu)","Quel est ton nom ?":"お名前は何ですか (o-namae wa nan desu ka)","Je ne comprends pas":"わかりません (wakarimasen)","Parle lentement":"ゆっくり話してください (yukkuri hanashite kudasai)","Bonne nuit":"おやすみなさい (oyasuminasai)",
+  "Un (1)":"一 (ichi)","Deux (2)":"二 (ni)","Trois (3)":"三 (san)","Quatre (4)":"四 (yon / shi)","Cinq (5)":"五 (go)",
+  "Six (6)":"六 (roku)","Sept (7)":"七 (nana / shichi)","Huit (8)":"八 (hachi)","Neuf (9)":"九 (kyū / ku)","Dix (10)":"十 (jū)",
+  "Maman":"お母さん (okāsan)","Papa":"お父さん (otōsan)","Grande sœur":"お姉さん (onēsan)","Grand frère":"お兄さん (onīsan)","Petit frère":"弟 (otōto)",
+  "Eau":"水 (mizu)","Riz / repas":"ご飯 (gohan)","Pain":"パン (pan)","J'ai faim":"お腹がすきました (onaka ga sukimashita)","J'ai soif":"のどが渇きました (nodo ga kawakimashita)",
+  "Où ?":"どこ (doko)","Combien ?":"いくら (ikura)","Quoi ?":"何 (nani)","Bon / bien":"いい (ii)","Mauvais":"悪い (warui)",
+  "Je t'aime":"愛してる (aishiteru)","Joli / beau":"きれい (kirei)","Très":"とても (totemo)","Maison":"家 (ie)","Aller":"行く (iku)",
+  "Aujourd'hui":"今日 (kyō)","Demain":"明日 (ashita)","Hier":"昨日 (kinō)","Maintenant":"今 (ima)","Beaucoup":"たくさん (takusan)"
+};
+/* Écriture cingalaise : utilisée uniquement par la voix, jamais affichée */
+var SINH={
+  "Bonjour (formel)":"ආයුබෝවන්","Comment ça va ?":"කොහොමද","Merci":"ස්තුතියි","Oui":"ඔව්","Non":"නෑ",
+  "Je / moi":"මම","Tu / toi":"ඔයා","S'il vous plaît":"කරුණාකර","Pardon / excusez-moi":"සමාවෙන්න","Au revoir":"ගිහින් එන්නම්",
+  "Mon nom est…":"මගේ නම","Quel est ton nom ?":"ඔයාගේ නම මොකක්ද","Je ne comprends pas":"මට තේරෙන්නේ නැහැ","Parle lentement":"හෙමින් කතා කරන්න","Bonne nuit":"සුබ රාත්‍රියක්",
+  "Un (1)":"එක","Deux (2)":"දෙක","Trois (3)":"තුන","Quatre (4)":"හතර","Cinq (5)":"පහ",
+  "Six (6)":"හය","Sept (7)":"හත","Huit (8)":"අට","Neuf (9)":"නවය","Dix (10)":"දහය",
+  "Maman":"අම්මා","Papa":"තාත්තා","Grande sœur":"අක්කා","Grand frère":"අයියා","Petit frère":"මල්ලි",
+  "Eau":"වතුර","Riz / repas":"බත්","Pain":"පාන්","J'ai faim":"මට බඩගිනියි","J'ai soif":"මට පිපාසයි",
+  "Où ?":"කොහෙද","Combien ?":"කීයද","Quoi ?":"මොකක්ද","Bon / bien":"හොඳයි","Mauvais":"නරකයි",
+  "Je t'aime":"මම ඔයාට ආදරෙයි","Joli / beau":"ලස්සන","Très":"බොහොම","Maison":"ගෙදර","Aller":"යන්න",
+  "Aujourd'hui":"අද","Demain":"හෙට","Hier":"ඊයේ","Maintenant":"දැන්","Beaucoup":"ගොඩක්"
+};
+var IT={
+  "Bonjour (formel)":"Buongiorno","Comment ça va ?":"Come stai?","Merci":"Grazie","Oui":"Sì","Non":"No",
+  "Je / moi":"Io","Tu / toi":"Tu","S'il vous plaît":"Per favore","Pardon / excusez-moi":"Scusa / mi scusi","Au revoir":"Arrivederci",
+  "Mon nom est…":"Mi chiamo…","Quel est ton nom ?":"Come ti chiami?","Je ne comprends pas":"Non capisco","Parle lentement":"Parla lentamente","Bonne nuit":"Buonanotte",
+  "Un (1)":"Uno (1)","Deux (2)":"Due (2)","Trois (3)":"Tre (3)","Quatre (4)":"Quattro (4)","Cinq (5)":"Cinque (5)",
+  "Six (6)":"Sei (6)","Sept (7)":"Sette (7)","Huit (8)":"Otto (8)","Neuf (9)":"Nove (9)","Dix (10)":"Dieci (10)",
+  "Maman":"Mamma","Papa":"Papà","Grande sœur":"Sorella maggiore","Grand frère":"Fratello maggiore","Petit frère":"Fratello minore",
+  "Eau":"Acqua","Riz / repas":"Riso / pasto","Pain":"Pane","J'ai faim":"Ho fame","J'ai soif":"Ho sete",
+  "Où ?":"Dove?","Combien ?":"Quanto?","Quoi ?":"Cosa?","Bon / bien":"Buono / bene","Mauvais":"Cattivo",
+  "Je t'aime":"Ti amo","Joli / beau":"Bello","Très":"Molto","Maison":"Casa","Aller":"Andare",
+  "Aujourd'hui":"Oggi","Demain":"Domani","Hier":"Ieri","Maintenant":"Adesso","Beaucoup":"Tanto"
+};
+var LANGS=[
+  {id:"fr",name:"Français",to:"en français"},{id:"en",name:"English",to:"en anglais"},
+  {id:"si",name:"Cingalais",to:"en cingalais"},{id:"su",name:"Soussou",to:"en soussou"},
+  {id:"ja",name:"Japonais",to:"en japonais"},{id:"it",name:"Italien",to:"en italien"}
+];
+var TEMPLATE=[
+  {d:0,t:"12:15",what:"Apprendre"},
+  {d:0,t:"19:30",what:"Test rapide"},
+  {d:0,t:"22:00",what:"Avant de dormir"},
+  {d:1,t:"08:30",what:"Test au réveil"},
+  {d:2,t:"12:30",what:"Relire"},
+  {d:5,t:"12:30",what:"Test"},
+  {d:9,t:"12:30",what:"Test final"}
+];
+var DAYS=["dim.","lun.","mar.","mer.","jeu.","ven.","sam."];
+var MONTHS=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
+var PAGES=["accueil","lecons","choix","test"];
+var PAGES_ALL=PAGES.concat(["login","admin","tickets"]);
+var STEP_LABELS=["Accueil","Leçons","Choisir","Test"];
+var ICON_CHECK='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>';
+var ICON_CAL='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
+
+var KEY="cingalais-done-v2",LKEY="cingalais-langs-v1",SUKEY="cingalais-su-v1",VKEY="cingalais-view-v1",PALKEY="cingalais-palette-v1",SHKEY="cingalais-shift-v1";
+var SRC_OK=["fr","en","si","ja","it"],TGT_OK=["en","fr","si","su","ja","it"];
+var doneMap={},suUser={},SRC=["fr","en"],TGT="si",CUR=1,PAGE="accueil",updNew=null;
+var S1={deck:[],i:0,rev:false};
+var T={started:false,which:null,title:"",deck:[],i:0,rev:false,ok:0,missed:[],done:false};
+var TODAY=new Date(),TODAY_K="";
+
+try{doneMap=JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){doneMap={};}
+var SHIFT={};try{SHIFT=JSON.parse(localStorage.getItem(SHKEY)||"{}")||{};}catch(e){SHIFT={};}
+try{suUser=JSON.parse(localStorage.getItem(SUKEY)||"{}")||{};}catch(e){suUser={};}
+try{var sv=JSON.parse(localStorage.getItem(LKEY)||"null");if(sv&&sv.src&&sv.tgt){SRC=sv.src.filter(function(x){return SRC_OK.indexOf(x)>-1;});TGT=sv.tgt;}}catch(e){}
+if(TGT_OK.indexOf(TGT)<0){TGT="si";}
+SRC=SRC.filter(function(x){return x!==TGT;});
+if(!SRC.length){SRC=["fr","en"].filter(function(x){return x!==TGT;}).slice(0,1);}
+
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");}
+function shuffle(a){a=a.slice();for(var k=a.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=a[k];a[k]=a[j];a[j]=t;}return a;}
+function addDays(iso,n){var p=iso.split("-");var d=new Date(+p[0],+p[1]-1,+p[2]);d.setDate(d.getDate()+n);return d;}
+function dkey(d){return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();}
+function dlabel(d){return DAYS[d.getDay()]+" "+d.getDate()+" "+MONTHS[d.getMonth()];}
+TODAY_K=dkey(TODAY);
+function lot(n){for(var k=0;k<LOTS.length;k++){if(LOTS[k].id===(n||CUR))return LOTS[k];}return LOTS[0];}
+function langOf(id){for(var k=0;k<LANGS.length;k++){if(LANGS[k].id===id)return LANGS[k];}return LANGS[0];}
+function word(c,l){
+  if(l==="fr")return c.fr;
+  if(l==="en")return EN[c.fr]||"";
+  if(l==="si")return c.si;
+  if(l==="ja")return JA[c.fr]||"";
+  if(l==="it")return IT[c.fr]||"";
+  var u=suUser[c.fr];
+  return u!==undefined?u:(SU[c.fr]||"");
+}
+function deckFor(l){
+  var ls=SRC.concat([TGT]);
+  return (l||lot()).cards.filter(function(c){return ls.every(function(x){return !!word(c,x);});});
+}
+function countTxt(l){var n=deckFor(l).length;return n===l.cards.length?n+" mots":n+" sur "+l.cards.length+" mots";}
+function started(l){return addDays(l.start,0)<=new Date();}
+function srcNames(){return SRC_OK.filter(function(x){return SRC.indexOf(x)>-1;}).map(function(x){return langOf(x).name;}).join(" + ");}
+function summary(){return "Je vois <b>"+esc(srcNames())+"</b>, je retrouve <b>"+esc(langOf(TGT).name)+"</b>";}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}syncSoon();}
+
+function sessionsOf(l){
+  return TEMPLATE.map(function(t,i){
+    var d=addDays(l.start,t.d);
+    var hm=t.t.split(":"),at=new Date(d.getFullYear(),d.getMonth(),d.getDate(),+hm[0],+hm[1]),id="L"+l.id+"-"+i,tt=t.t;
+    if(SHIFT[id]){at=new Date(SHIFT[id]);d=new Date(at.getFullYear(),at.getMonth(),at.getDate());tt=(at.getHours()<10?"0":"")+at.getHours()+":"+(at.getMinutes()<10?"0":"")+at.getMinutes();}
+    return {id:id,lot:l.id,k:dkey(d),date:d,at:at,t:tt,what:t.what};
+  });
+}
+function lotStatus(l){
+  if(doneMap["L"+l.id+"-"+(TEMPLATE.length-1)])return "done";
+  var now=new Date(),late=false;
+  sessionsOf(l).forEach(function(s){if(!doneMap[s.id]&&s.at<now)late=true;});
+  return late?"late":"";
+}
+
+/* Animations : progression, confettis, compteur */
+var REDUCED=false;try{REDUCED=window.matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
+function renderProgress(animate){
+  var n=LOTS.filter(function(l){return lotStatus(l)==="done";}).length,f=document.getElementById("ringf");
+  document.getElementById("ring-n").textContent=n+" / "+LOTS.length;
+  var off=(113.1*(1-n/LOTS.length)).toFixed(1);
+  if(animate&&!REDUCED){f.style.strokeDashoffset="113.1";requestAnimationFrame(function(){requestAnimationFrame(function(){f.style.strokeDashoffset=off;});});}
+  else{f.style.strokeDashoffset=off;}
+}
+function confetti(){
+  if(REDUCED)return;
+  var box=document.createElement("div");box.className="confetti";
+  var cols=["var(--accent)","var(--gold)","var(--good)","var(--late)","#ffffff"],h="";
+  for(var i=0;i<48;i++){
+    h+='<i style="left:'+(Math.random()*100).toFixed(1)+'%;--x:'+((Math.random()-.5)*160).toFixed(0)+'px;--r:'+((Math.random()-.5)*1080).toFixed(0)+'deg;--d:'+(1.8+Math.random()*1.6).toFixed(2)+'s;--c:'+cols[i%cols.length]+';animation-delay:'+(Math.random()*.5).toFixed(2)+'s"></i>';
+  }
+  box.innerHTML=h;document.body.appendChild(box);
+  setTimeout(function(){if(box.parentNode){box.parentNode.removeChild(box);}},4200);
+}
+function countUp(el,to){
+  if(!el)return;
+  if(REDUCED||to<=0){el.textContent=to;return;}
+  var t0=null;
+  function step(t){if(t0===null)t0=t;var k=Math.min(1,(t-t0)/900);el.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1){requestAnimationFrame(step);}}
+  requestAnimationFrame(step);
+}
+
+
+/* Prononciation audio (voix de l'appareil) */
+var SAYKEY="cingalais-autosay-v1",AUTOSAY=true;
+try{AUTOSAY=localStorage.getItem(SAYKEY)!=="0";}catch(e){}
+var SAYLANG={fr:"fr-FR",en:"en-US",it:"it-IT",ja:"ja-JP",si:"si-LK",su:"fr-FR"};
+function ttsOn(){return typeof window!=="undefined"&&"speechSynthesis" in window&&typeof SpeechSynthesisUtterance!=="undefined";}
+function voiceFor(code){
+  var vs=[];try{vs=window.speechSynthesis.getVoices()||[];}catch(e){}
+  var pre=code.slice(0,2).toLowerCase(),best=null;
+  for(var k=0;k<vs.length;k++){
+    var l=String(vs[k].lang||"").toLowerCase().replace("_","-");
+    if(l===code.toLowerCase())return vs[k];
+    if(!best&&l.indexOf(pre)===0)best=vs[k];
+  }
+  return best;
+}
+function sayLang(){return (TGT==="si"||SRC.indexOf("si")>-1)?"si":TGT;}
+function canSay(rev,lang){return rev||SRC.indexOf(lang)>-1;}
+function sayPlan(c,lang){
+  var t=word(c,lang)||"";
+  if(lang==="si"){
+    if(voiceFor("si-LK")&&SINH[c.fr]){return {text:SINH[c.fr],code:"si-LK",approx:false};}
+    return {text:t.replace(/-/g,""),code:"fr-FR",approx:true};
+  }
+  if(lang==="su"){var m=t.match(/\(([^)]*)\)/);return {text:(m?m[1]:t).replace(/-/g,""),code:"fr-FR",approx:false};}
+  if(lang==="ja"||lang==="it"){t=t.replace(/\s*\(.*$/,"");}
+  t=t.replace(/\s*\(\d+\)/,"").replace(/\s*\/\s*/g,", ");
+  return {text:t,code:SAYLANG[lang]||"fr-FR",approx:false};
+}
+function speakCard(c,slow){
+  if(!c||!ttsOn())return;
+  stopAudio();
+  var lang=sayLang(),plan=sayPlan(c,lang);
+  if(SONS[sndKey(c)]){playSound(sndKey(c),slow);return;}
+  if(!plan.text)return;
+  var note=document.getElementById("say-note");
+  if(note){note.textContent=plan.approx?"Pas de voix cingalaise sur cet appareil : prononciation approchée avec une voix française.":"";}
+  try{
+    window.speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(plan.text);
+    u.lang=plan.code;var v=voiceFor(plan.code);if(v){u.voice=v;}
+    u.rate=slow?0.55:0.85;
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+function curCard(){return PAGE==="test"?T.deck[T.i]:S1.deck[S1.i];}
+function sayHtml(c,rev){
+  if(!ttsOn())return "";
+  var on=canSay(rev,sayLang());
+  var ic='<svg class="ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+  return '<div class="sayrow"><button class="btn small say" type="button" data-say="1"'+(on?"":" disabled")+'>'+ic+' Écouter</button><button class="btn small say" type="button" data-say="slow"'+(on?"":" disabled")+'>Lent</button><button class="btn small" type="button" data-snd="toggle" aria-expanded="'+SNDOPEN+'">Mon son'+(SONS[sndKey(c)]?" ✓":"")+'</button><label class="auto"><input type="checkbox" data-autosay="1"'+(AUTOSAY?" checked":"")+'> Lecture auto</label></div><p class="note" id="say-note" role="status"></p>'+(sndOn()&&SNDOPEN?'<div class="sndpanel" id="snd-panel">'+sndHtml(c,rev)+'</div>':'');
+}
+
+
+/* Sons personnels : enregistrés ou importés, gardés sur cet appareil (IndexedDB) */
+var SONS={},SNDOPEN=false,SNDARM=false,REC=null,CURAUDIO=null,SNDDB=null,SNDMAX=2000000;
+function sndOn(){return typeof indexedDB!=="undefined"&&typeof Blob!=="undefined";}
+function sndKey(c){return sayLang()+":"+c.fr;}
+function sndDb(){
+  return new Promise(function(ok,ko){
+    if(SNDDB){ok(SNDDB);return;}
+    var r;try{r=indexedDB.open("cingalais-sons",1);}catch(e){ko(e);return;}
+    r.onupgradeneeded=function(){r.result.createObjectStore("s");};
+    r.onsuccess=function(){SNDDB=r.result;ok(SNDDB);};
+    r.onerror=function(){ko(r.error);};
+  });
+}
+function sndReq(mode,fn){
+  return sndDb().then(function(db){return new Promise(function(ok,ko){
+    var tx=db.transaction("s",mode),rq=fn(tx.objectStore("s"));
+    tx.oncomplete=function(){ok(rq&&rq.result);};tx.onerror=function(){ko(tx.error);};tx.onabort=function(){ko(tx.error);};
+  });});
+}
+function sndLoad(){
+  if(!sndOn())return;
+  sndReq("readonly",function(st){return st.getAllKeys();}).then(function(keys){
+    (keys||[]).forEach(function(k){SONS[k]=true;});
+    if(PAGE==="lecons"){renderLearn();}else if(PAGE==="test"&&T.started){renderTest();}
+  }).catch(function(){});
+}
+function sndNote(m){var n=document.getElementById("snd-note");if(n){n.textContent=m||"";}}
+function stopAudio(){
+  if(CURAUDIO){try{CURAUDIO.pause();}catch(e){}CURAUDIO=null;}
+}
+function playSound(key,slow){
+  sndReq("readonly",function(st){return st.get(key);}).then(function(blob){
+    if(!blob){delete SONS[key];renderSnd();return;}
+    stopAudio();
+    try{window.speechSynthesis.cancel();}catch(e){}
+    var url=URL.createObjectURL(blob),a=new Audio(url);
+    a.playbackRate=slow?0.6:1;
+    a.onended=function(){URL.revokeObjectURL(url);if(CURAUDIO===a){CURAUDIO=null;}};
+    CURAUDIO=a;
+    a.play().catch(function(){sndNote("Impossible de lire ce son sur cet appareil.");});
+  }).catch(function(){sndNote("Impossible de lire ce son.");});
+}
+function saveSound(key,blob){
+  if(!blob||!blob.size){sndNote("Son vide, réessaie.");return;}
+  if(blob.size>SNDMAX){sndNote("Son trop long ou trop lourd (2 Mo maximum).");return;}
+  sndReq("readwrite",function(st){return st.put(blob,key);}).then(function(){
+    SONS[key]=true;SNDARM=false;renderSnd();sndNote("Ton son est enregistré. Il sera lu à la place de la voix.");
+  }).catch(function(){sndNote("Impossible d'enregistrer le son (mode privé ?).");});
+}
+function delSound(key){
+  sndReq("readwrite",function(st){return st.delete(key);}).then(function(){
+    delete SONS[key];SNDARM=false;renderSnd();sndNote("Son supprimé.");
+  }).catch(function(){sndNote("Impossible de supprimer le son.");});
+}
+function recToggle(){
+  if(REC){if(REC.mr.state!=="inactive"){REC.mr.stop();}return;}
+  var c=curCard();if(!c)return;
+  if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder)){sndNote("Enregistrement indisponible ici : utilise « Importer un fichier ».");return;}
+  var key=sndKey(c);
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+    var types=["audio/webm;codecs=opus","audio/webm","audio/mp4","audio/ogg"],mt="";
+    for(var k=0;k<types.length;k++){if(MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(types[k])){mt=types[k];break;}}
+    var chunks=[],mr=mt?new MediaRecorder(stream,{mimeType:mt}):new MediaRecorder(stream),timer=null;
+    mr.ondataavailable=function(e){if(e.data&&e.data.size){chunks.push(e.data);}};
+    mr.onstop=function(){
+      clearTimeout(timer);stream.getTracks().forEach(function(t){t.stop();});
+      REC=null;renderSnd();
+      saveSound(key,new Blob(chunks,{type:mr.mimeType||mt||"audio/webm"}));
+    };
+    mr.start();REC={mr:mr,key:key};
+    timer=setTimeout(function(){if(mr.state!=="inactive"){mr.stop();}},10000);
+    sndNote("Enregistrement… dis le mot, puis touche « Arrêter » (10 s maximum).");renderSnd();
+  }).catch(function(){sndNote("Micro refusé. Autorise le micro dans ton navigateur, ou utilise « Importer un fichier ».");});
+}
+function sndHtml(c,rev){
+  var key=sndKey(c),has=!!SONS[key],can=canSay(rev,sayLang());
+  var h='<div class="sndrow">';
+  h+='<button class="btn small" type="button" data-snd="rec">'+(REC?"Arrêter":"Enregistrer")+'</button>';
+  h+='<label class="btn small filebtn">Importer un fichier<input type="file" accept="audio/*" data-snd-file="1" hidden></label>';
+  if(has){
+    h+='<button class="btn small" type="button" data-snd="play"'+(can?"":" disabled")+'>Écouter mon son</button>';
+    h+='<button class="btn small warn" type="button" data-snd="del">'+(SNDARM?"Confirmer":"Supprimer")+'</button>';
+  }
+  return h+'</div><p class="note" id="snd-note" role="status">'+(has?"Ton son est utilisé à la place de la voix.":"Ajoute ta propre prononciation (par exemple celle d'un proche).")+'</p>';
+}
+function renderSnd(){
+  var el=document.getElementById("snd-panel"),c=curCard();
+  if(!el||!c)return;
+  var rev=PAGE==="test"?T.rev:S1.rev;
+  el.innerHTML=sndHtml(c,rev);
+}
+
+
+/* Décaler le planning et alarmes sur mobile */
+var SHARM=false;
+function allSessions(){var a=[];LOTS.forEach(function(l){sessionsOf(l).forEach(function(s){a.push(s);});});a.sort(function(x,y){return x.at-y.at;});return a;}
+function pendingSessions(){return allSessions().filter(function(s){return !doneMap[s.id];});}
+function renderPlanbox_keep(sh){var n=document.getElementById("sh-note"),m=n?n.textContent:"";renderPlanbox();shNote(m);}
+function shNote(m){var n=document.getElementById("sh-note");if(n){n.textContent=m||"";}}
+function isAndroid(){return /android/i.test(navigator.userAgent||"");}
+function renderPlanbox(){
+  var el=document.getElementById("planbox");if(!el)return;
+  var n=pendingSessions().length,h='<div class="navrow">';
+  h+='<button class="btn" type="button" data-sh="shift"'+(n?"":" disabled")+'>'+(SHARM?"Confirmer : tout décaler à partir de maintenant":"Décaler les séances à partir de maintenant")+'</button>';
+  var nx=upcoming24();
+  h+='<button class="btn" type="button" data-sh="android" aria-expanded="'+ANDOPEN+'"'+(nx.length?"":" disabled")+'>🤖 Android : alarmes dans Horloge</button>';
+  if(ANDOPEN&&nx.length){
+    h+='<div class="andlist">'+nx.map(function(x){return '<a class="btn small" href="'+androidHref(x)+'">🤖 Régler '+esc(x.t)+' · '+esc(x.what)+'</a>';}).join("")+'<p class="note">Touche chaque ligne : l\'appli Horloge s\'ouvre ou règle l\'alarme. Ouvre cette page dans Chrome.</p></div>';
+  }
+  h+='<button class="btn" type="button" data-sh="ios"'+(nx.length?"":" disabled")+'>🍎 iPhone : alarmes dans Horloge</button>';
+  h+='<button class="btn" type="button" data-sh="ics"'+(n?"":" disabled")+'>Calendrier / Outlook (.ics)</button>';
+  h+='<details class="iosh"><summary>Réglage unique pour iPhone</summary><p>Apple ne permet pas à un site de créer des alarmes directement. Crée une fois un raccourci nommé <b>Cingalais</b> dans l\'app Raccourcis :</p><ol><li>Nouveau raccourci, nomme-le <b>Cingalais</b>.</li><li>Ajoute « Diviser le texte » : texte = <i>Entrée du raccourci</i>, séparateur = Nouvelles lignes.</li><li>Ajoute « Répéter avec chaque élément », puis dedans « Diviser le texte » (séparateur personnalisé <b>|</b>).</li><li>Ajoute « Obtenir l\'élément de la liste » (premier) puis « Obtenir la date à partir de l\'entrée ».</li><li>Ajoute « Créer une alarme » avec cette date, et comme étiquette le deuxième élément.</li></ol><p>Ensuite le bouton iPhone lance ce raccourci avec tes séances des prochaines 24 h.</p></details>';
+  if(Object.keys(SHIFT).length){h+='<button class="btn small" type="button" data-sh="reset">Rétablir les horaires d\'origine</button>';}
+  h+='</div><p class="note" id="sh-note" role="status">'+(SHARM?"Les "+n+" séances non cochées seront replanifiées en gardant les mêmes écarts. Touche encore pour confirmer.":"")+'</p>';
+  el.innerHTML=h;
+}
+function shiftAll(){
+  var p=pendingSessions();if(!p.length)return;
+  var now=new Date();now.setSeconds(0,0);now.setMinutes(Math.ceil(now.getMinutes()/5)*5);
+  var delta=now.getTime()-p[0].at.getTime(),ns={};
+  p.forEach(function(s){ns[s.id]=s.at.getTime()+delta;});
+  Object.keys(SHIFT).forEach(function(k){if(doneMap[k]&&!ns[k]){ns[k]=SHIFT[k];}});
+  SHIFT=ns;save(SHKEY,SHIFT);SHARM=false;
+  refreshPlans();
+  var f=now;
+  shNote(p.length+" séances replanifiées : la première à "+(f.getHours()<10?"0":"")+f.getHours()+":"+(f.getMinutes()<10?"0":"")+f.getMinutes()+".");
+}
+function resetShift(){SHIFT={};save(SHKEY,SHIFT);SHARM=false;refreshPlans();shNote("Horaires d'origine rétablis.");}
+function refreshPlans(){
+  renderToday();renderProgress(false);renderPlanbox();
+  if(PAGE==="lecons"){renderPlan();document.getElementById("lotpick").innerHTML=LOTS.map(function(x){return lotBtnHtml(x,"data-lot",x.id===CUR);}).join("");}
+}
+function icsDate(d){function z(n){return (n<10?"0":"")+n;}return d.getFullYear()+z(d.getMonth()+1)+z(d.getDate())+"T"+z(d.getHours())+z(d.getMinutes())+"00";}
+function icsEsc(t){return String(t).replace(/\\/g,"\\\\").replace(/;/g,"\;").replace(/,/g,"\\,").replace(/\n/g," ");}
+function exportIcs(){
+  var now=new Date(),p=pendingSessions().filter(function(s){return s.at>now;});
+  if(!p.length){shNote("Aucune séance à venir à exporter. Décale d'abord les séances à partir de maintenant.");return;}
+  var st=new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d+/,""),L=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Fiches cingalais//FR","CALSCALE:GREGORIAN"];
+  p.forEach(function(s){
+    var end=new Date(s.at.getTime()+10*60000);
+    L.push("BEGIN:VEVENT","UID:"+s.id+"-"+s.at.getTime()+"@fiches-cingalais","DTSTAMP:"+st,"DTSTART:"+icsDate(s.at),"DTEND:"+icsDate(end),
+      "SUMMARY:"+icsEsc("Cingalais : "+s.what+" (lot "+s.lot+")"),
+      "BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:"+icsEsc("Cingalais : "+s.what),"TRIGGER:PT0M","END:VALARM","END:VEVENT");
+  });
+  L.push("END:VCALENDAR");
+  var blob=new Blob([L.join("\r\n")+"\r\n"],{type:"text/calendar"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download="cingalais-alarmes.ics";document.body.appendChild(a);a.click();
+  setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},2000);
+  shNote(p.length+" séances exportées. Ouvre le fichier : ton calendrier les ajoute avec une alarme à l'heure de chaque séance.");
+}
+var ANDOPEN=false;
+function androidHref(s){
+  return "intent:#Intent;action=android.intent.action.SET_ALARM;category=android.intent.category.DEFAULT;i.android.intent.extra.alarm.HOUR="+s.at.getHours()+";i.android.intent.extra.alarm.MINUTES="+s.at.getMinutes()+";S.android.intent.extra.alarm.MESSAGE="+encodeURIComponent("Cingalais : "+s.what)+";B.android.intent.extra.alarm.SKIP_UI=true;end";
+}
+function upcoming24(){var now=new Date(),lim=now.getTime()+86400000;return pendingSessions().filter(function(s){return s.at>now&&s.at.getTime()<=lim;});}
+function iosAlarms(){
+  var q=upcoming24();if(!q.length){shNote("Aucune séance dans les prochaines 24 h.");return;}
+  var txt=q.map(function(s){return s.t+"|Cingalais : "+s.what;}).join("\n");
+  shNote(q.length+" alarmes envoyées au raccourci « Cingalais ». S'il n'existe pas encore, ouvre « Réglage unique pour iPhone » ci-dessus.");
+  location.href="shortcuts://run-shortcut?name="+encodeURIComponent("Cingalais")+"&input=text&text="+encodeURIComponent(txt);
+}
+function androidTimer(){
+  var now=new Date(),p=pendingSessions().filter(function(s){return s.at>now;});
+  if(!p.length){shNote("Aucune séance à venir.");return;}
+  var sec=Math.max(1,Math.round((p[0].at-now)/1000));
+  location.href="intent:#Intent;action=android.intent.action.SET_TIMER;i.android.intent.extra.alarm.LENGTH="+sec+";S.android.intent.extra.alarm.MESSAGE="+encodeURIComponent("Cingalais : "+p[0].what)+";B.android.intent.extra.alarm.SKIP_UI=false;end";
+  shNote("Minuteur envoyé à l'appli Horloge pour « "+p[0].what+" » dans "+Math.floor(sec/60)+" min.");
+}
+
+/* Thèmes de couleur */
+var PALS=[{id:"rose",name:"Rose",c:"#8A2433"},{id:"green",name:"Vert",c:"#1F6B45"},{id:"blue",name:"Bleu",c:"#1F5FA8"},{id:"ceylon",name:"Ceylan",c:"#B3541A"}];
+var PAL="rose";
+function palOk(id){return PALS.some(function(x){return x.id===id;});}
+function setPal(id,persist){
+  if(!palOk(id))id="rose";
+  PAL=id;
+  if(id==="rose"){document.documentElement.removeAttribute("data-palette");}else{document.documentElement.setAttribute("data-palette",id);}
+  var cur=PALS.filter(function(x){return x.id===id;})[0];
+  document.getElementById("themes").innerHTML='<span>Thème : <b>'+cur.name+'</b></span>'+PALS.map(function(x){
+    return '<button class="sw" type="button" data-pal="'+x.id+'" style="--c:'+x.c+'" aria-label="Thème '+x.name+'" title="'+x.name+'" aria-pressed="'+(x.id===id)+'"></button>';
+  }).join("");
+  if(persist){try{localStorage.setItem(PALKEY,id);}catch(e){}syncSoon();}
+}
+function initPal(){var v="";try{v=localStorage.getItem(PALKEY)||"";}catch(e){}setPal(v,false);}
+
+/* Affichage ordinateur / mobile */
+function setView(v,persist){
+  document.documentElement.setAttribute("data-view",v);
+  var btns=document.querySelectorAll("[data-setview]");
+  for(var k=0;k<btns.length;k++){btns[k].setAttribute("aria-pressed",btns[k].getAttribute("data-setview")===v);}
+  var m=document.querySelector('meta[name="viewport"]');
+  if(m){m.setAttribute("content",(v==="desktop"&&screen.width<760)?"width=1024":"width=device-width, initial-scale=1, viewport-fit=cover");}
+  if(persist){try{localStorage.setItem(VKEY,v);}catch(e){}}
+}
+function initView(){
+  var v="";
+  try{v=localStorage.getItem(VKEY)||"";}catch(e){}
+  if(v!=="desktop"&&v!=="mobile"){v=(window.innerWidth>=900)?"desktop":"mobile";}
+  setView(v,false);
+}
+
+/* Navigation entre les 4 pages */
+function currentHash(){var h=(location.hash||"").replace("#","");return PAGES_ALL.indexOf(h)>-1?h:"accueil";}
+function go(p){
+  showPage(p);
+  try{if(location.hash!=="#"+PAGE){location.hash="#"+PAGE;}}catch(e){}
+}
+function showPage(p){
+  if(p==="test"&&!T.started){p="choix";}
+  if(p==="admin"&&!(SESSION&&SESSION.is_admin)){p="accueil";}
+  if(p==="tickets"&&!sbOn()){p="accueil";}
+  if(p==="tickets"&&!SESSION){NEXT="tickets";p="login";}
+  if(p==="login"&&!sbOn()){p="accueil";}
+  PAGE=p;
+  if(ttsOn()){try{window.speechSynthesis.cancel();}catch(e){}}
+  stopAudio();if(REC&&REC.mr.state!=="inactive"){REC.mr.stop();}
+  PAGES_ALL.forEach(function(x){document.getElementById("p-"+x).hidden=(x!==p);});
+  document.getElementById("steps").hidden=(PAGES.indexOf(p)<0);
+  renderSteps();
+  if(p==="login"){setLg(NEXT==="tickets"?"Connecte-toi ou crée un compte pour accéder aux suggestions.":"");}
+  if(p==="tickets"){TK.view="list";TK.cur=null;loadTickets();}
+  if(p==="admin"){loadAdmin();}
+  if(p==="accueil"){renderProgress(true);renderToday();SHARM=false;renderPlanbox();renderLangs();document.getElementById("ver").textContent=VERSION;renderHomeTk();}
+  if(p==="lecons"){renderLecons();}
+  if(p==="choix"){renderChoix();}
+  if(p==="test"){renderTest();}
+  try{window.scrollTo(0,0);}catch(e){}
+}
+function renderSteps(){
+  var h="";
+  PAGES.forEach(function(p,i){
+    h+='<button type="button" data-go="'+p+'"'+(p===PAGE?' aria-current="page"':"")+'><b>'+(i+1)+'</b>'+STEP_LABELS[i]+'</button>';
+  });
+  document.getElementById("steps").innerHTML=h;
+}
+
+/* Planning et rappels */
+function slotHtml(s,withLot){
+  var d=!!doneMap[s.id],isNow=s.k===TODAY_K,late=!d&&s.at<new Date();
+  var when=withLot?s.t:dlabel(s.date)+" · "+s.t;
+  var what=withLot?s.what+" · lot "+s.lot:s.what;
+  return '<label class="slot'+(d?" done":"")+(isNow&&!withLot?" now":"")+(late?" late":"")+'"><input type="checkbox" data-id="'+s.id+'"'+(d?" checked":"")+'><span class="when">'+esc(when)+'</span><span class="what">'+esc(what)+'</span></label>';
+}
+function renderToday(){
+  var all=[];
+  LOTS.forEach(function(l){sessionsOf(l).forEach(function(s){if(s.k===TODAY_K)all.push(s);});});
+  all.sort(function(a,b){return a.t<b.t?-1:a.t>b.t?1:0;});
+  document.getElementById("today").innerHTML=all.length?all.map(function(s){return slotHtml(s,true);}).join(""):'<p class="empty">Rien de prévu aujourd\'hui. Repose-toi.</p>';
+}
+function renderPlan(){
+  document.getElementById("plan").innerHTML=sessionsOf(lot()).map(function(s){return slotHtml(s,false);}).join("");
+  document.getElementById("plan-title").textContent="Révisions du lot "+lot().id;
+}
+
+/* Choix des langues */
+function saveLangs(){save(LKEY,{src:SRC,tgt:TGT});}
+function renderLangs(){
+  var h="";
+  SRC_OK.forEach(function(id){h+='<button type="button" data-src="'+id+'" aria-pressed="'+(SRC.indexOf(id)>-1)+'" aria-disabled="'+(id===TGT)+'">'+langOf(id).name+'</button>';});
+  document.getElementById("src").innerHTML=h;
+  h="";
+  TGT_OK.forEach(function(id){h+='<button type="button" data-tgt="'+id+'" aria-pressed="'+(id===TGT)+'">'+langOf(id).name+'</button>';});
+  document.getElementById("tgt").innerHTML=h;
+  var jp=(TGT==="ja"||SRC.indexOf("ja")>-1);
+  document.getElementById("lang-note").textContent=jp?"Japonais : le « u » se dit « ou », et un accent comme dans « ō » allonge le son.":"";
+}
+function langsChanged(msg){
+  saveLangs();renderLangs();
+  document.getElementById("swap-msg").textContent=msg||"";
+  S1.i=0;S1.rev=false;T.started=false;
+}
+
+/* Boutons de lots */
+function lotBtnHtml(l,attr,pressed){
+  var st=lotStatus(l),later=!started(l);
+  var ic=st==="done"?ICON_CHECK:st==="late"?ICON_CAL:"";
+  var label="Lot "+l.id+", "+l.title+(st==="done"?", terminé":st==="late"?", en retard":"");
+  return '<button type="button" class="lotbtn'+(later?" later":"")+(st?" st-"+st:"")+'" '+attr+'="'+l.id+'" aria-label="'+esc(label)+'"'+(pressed===null?"":' aria-pressed="'+pressed+'"')+'><span class="ic">'+ic+'</span><b>Lot '+l.id+'</b><span class="t">'+esc(l.title)+'</span><span class="c">'+countTxt(l)+'</span></button>';
+}
+
+/* Cartes */
+function cardHtml(c,rev,act){
+  var to=langOf(TGT).to;
+  var h='<button class="card" type="button" data-act="'+act+'" aria-label="Retourner la fiche">';
+  h+='<span class="q">'+esc(to.charAt(0).toUpperCase()+to.slice(1))+' ?</span>';
+  SRC_OK.filter(function(x){return SRC.indexOf(x)>-1;}).forEach(function(id,k){
+    h+='<span class="'+(k===0?"fr":"fr2")+'"><em class="lg">'+id+'</em>'+esc(word(c,id))+'</span>';
+  });
+  var showTip=TGT==="si"||SRC.indexOf("si")>-1;
+  if(rev){h+='<span class="ans"><span class="si">'+esc(word(c,TGT))+'</span>'+(showTip?'<span class="tip">'+esc(c.tip)+'</span>':'')+'</span>';}
+  else{h+='<span class="hint">Dis-le à voix haute, puis touche la fiche.</span>';}
+  return h+'</button>';
+}
+function emptyHtml(){
+  return '<div class="result"><p>Aucun mot de cette leçon n\'est disponible dans cette combinaison de langues.</p><p class="miss">Pour le soussou, ajoute les mots dans « Compléter le soussou ».</p></div>';
+}
+
+/* Page 2 : leçons */
+function renderLecons(){
+  var l=lot(),sd=addDays(l.start,0);
+  var when=dkey(sd)===TODAY_K?"commence aujourd'hui":(sd>TODAY?"commence "+dlabel(sd):"commencé "+dlabel(sd));
+  document.getElementById("sub").textContent="Lot "+l.id+" · "+l.title+" · "+countTxt(l)+" · "+when;
+  document.getElementById("sum1").innerHTML=summary();
+  document.getElementById("lotpick").innerHTML=LOTS.map(function(x){return lotBtnHtml(x,"data-lot",x.id===CUR);}).join("");
+  renderPlan();renderSu();renderLearn();
+}
+function renderLearn(){
+  var el=document.getElementById("learn-app"),d=deckFor(),n=d.length;
+  S1.deck=d;
+  if(!n){el.innerHTML=emptyHtml();return;}
+  if(S1.i>=n){S1.i=0;}
+  var c=d[S1.i],pct=Math.round((S1.i/n)*100),h="";
+  h+='<div class="meta"><span>Apprentissage</span><span>'+(S1.i+1)+' / '+n+'</span></div>';
+  h+='<div class="bar" aria-hidden="true"><i style="width:'+pct+'%"></i></div>';
+  h+=cardHtml(c,S1.rev,"lflip")+sayHtml(c,S1.rev);
+  h+='<div class="actions"><button class="btn primary" type="button" data-act="'+(S1.rev?"lnext":"lflip")+'">'+(S1.rev?"Fiche suivante":"Retourner")+'</button>';
+  h+='<button class="btn" type="button" data-act="lprev"'+(S1.i===0?" disabled":"")+'>Précédente</button></div>';
+  el.innerHTML=h;
+}
+function renderSu(){
+  var h="";
+  lot().cards.forEach(function(c,i){
+    h+='<div class="surow"><label for="su'+i+'">'+esc(c.fr)+' · '+esc(EN[c.fr]||"")+'</label><input id="su'+i+'" type="text" data-su="'+i+'" value="'+esc(word(c,"su"))+'" placeholder="En soussou" autocomplete="off" autocapitalize="off"></div>';
+  });
+  document.getElementById("su-list").innerHTML=h;
+}
+
+/* Page 3 : choix du test */
+var TSEL=[],TSEL_INIT=false;
+function tselUpdate(){
+  var words=0;
+  TSEL.forEach(function(id){words+=deckFor(lot(id)).length;});
+  document.getElementById("tstart").textContent=TSEL.length?"Lancer le test ("+TSEL.length+(TSEL.length>1?" lots":" lot")+" · "+words+" mots)":"Lancer le test";
+}
+function renderChoix(){
+  if(!TSEL_INIT){TSEL=[CUR];TSEL_INIT=true;}
+  document.getElementById("sum2").innerHTML=summary();
+  document.getElementById("testpick").innerHTML=LOTS.map(function(x){return lotBtnHtml(x,"data-tlot",TSEL.indexOf(x.id)>-1);}).join("");
+  document.getElementById("tmsg").textContent="";
+  tselUpdate();
+}
+function buildTest(ids){
+  var sorted=ids.slice().sort(function(a,b){return a-b;}),cards=[];
+  sorted.forEach(function(id){cards=cards.concat(deckFor(lot(id)));});
+  var title=sorted.length===1?"Lot "+sorted[0]+" · "+lot(sorted[0]).title:"Lots "+sorted.join(", ");
+  T={started:true,which:sorted,title:title,deck:shuffle(cards),i:0,rev:false,ok:0,missed:[],done:false};
+}
+
+/* Page 4 : test */
+function renderTest(){
+  document.getElementById("test-sub").textContent=T.title;
+  document.getElementById("sum3").innerHTML=summary();
+  var el=document.getElementById("test-app"),n=T.deck.length,h="";
+  if(!n){el.innerHTML=emptyHtml();return;}
+  if(T.done){
+    h+='<div class="result"><svg class="trophy" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4v1a4 4 0 0 0 4 4M16 6h4v1a4 4 0 0 1-4 4M12 13v4M8 21h8M10 17h4"/></svg><p class="miss">Test terminé</p><p class="score"><span id="sc">0</span> / '+n+'</p><p>mots retenus</p></div>';
+    h+='<div class="actions">';
+    if(T.missed.length){h+='<button class="btn primary" type="button" data-act="tredo">Refaire les '+T.missed.length+' à revoir</button>';}
+    h+='<button class="btn" type="button" data-act="trestart">Recommencer ce test</button></div>';
+    el.innerHTML=h;
+    countUp(document.getElementById("sc"),T.ok);
+    if(!T.fx){T.fx=true;if(T.ok>0&&T.ok>=Math.ceil(n*0.6)){confetti();}}
+    return;
+  }
+  var c=T.deck[T.i],pct=Math.round((T.i/n)*100);
+  h+='<div class="meta"><span>Test</span><span>'+(T.i+1)+' / '+n+'</span></div>';
+  h+='<div class="bar" aria-hidden="true"><i style="width:'+pct+'%"></i></div>';
+  h+=cardHtml(c,T.rev,"tflip")+sayHtml(c,T.rev);
+  if(T.rev){h+='<div class="actions two"><button class="btn warn" type="button" data-act="tmiss">À revoir</button><button class="btn good" type="button" data-act="tknown">Je savais</button></div>';}
+  else{h+='<div class="actions"><button class="btn primary" type="button" data-act="tflip">Voir la réponse</button></div>';}
+  el.innerHTML=h;
+}
+function tadvance(){
+  if(T.i<T.deck.length-1){T.i++;T.rev=false;}else{T.done=true;}
+  renderTest();
+}
+
+/* Actions */
+function act(a){
+  if(a==="lflip"){S1.rev=!S1.rev;renderLearn();if(S1.rev&&AUTOSAY){speakCard(S1.deck[S1.i],false);}}
+  else if(a==="lnext"){S1.i=(S1.i<S1.deck.length-1)?S1.i+1:0;S1.rev=false;renderLearn();}
+  else if(a==="lprev"){if(S1.i>0){S1.i--;S1.rev=false;renderLearn();}}
+  else if(a==="tflip"){T.rev=!T.rev;renderTest();if(T.rev&&AUTOSAY){speakCard(T.deck[T.i],false);}}
+  else if(a==="tknown"){T.ok++;tadvance();}
+  else if(a==="tmiss"){T.missed.push(T.deck[T.i]);tadvance();}
+  else if(a==="tredo"){T.deck=shuffle(T.missed);T.i=0;T.rev=false;T.ok=0;T.missed=[];T.done=false;T.fx=false;renderTest();}
+  else if(a==="trestart"){buildTest(T.which);renderTest();}
+}
+document.addEventListener("click",function(e){
+  var t=e.target.closest("[data-go],[data-act],[data-lot],[data-tlot],[data-src],[data-tgt],[data-setview],[data-swap],[data-tsel],[data-tstart],[data-logout],[data-tk],[data-pal],[data-say],[data-snd],[data-sh],#upd-btn");
+  if(!t)return;
+  if(t.id==="upd-btn"){checkUpdate(false);return;}
+  if(t.hasAttribute("data-logout")){logout();return;}
+  if(t.hasAttribute("data-sh")){
+    var sh=t.getAttribute("data-sh");
+    if(sh==="shift"){if(!SHARM){SHARM=true;renderPlanbox();}else{shiftAll();}}
+    else{SHARM=false;if(sh==="ics"){exportIcs();}else if(sh==="android"){ANDOPEN=!ANDOPEN;}else if(sh==="ios"){iosAlarms();}else if(sh==="timer"){androidTimer();}else if(sh==="reset"){resetShift();}renderPlanbox_keep(sh);}
+    return;
+  }
+  if(t.hasAttribute("data-snd")){
+    var sa=t.getAttribute("data-snd"),cc=curCard();
+    if(sa==="toggle"){SNDOPEN=!SNDOPEN;t.setAttribute("aria-expanded",SNDOPEN);var pn=document.getElementById("snd-panel");
+      if(pn){pn.parentNode.removeChild(pn);}
+      if(SNDOPEN&&cc){var d=document.createElement("div");d.className="sndpanel";d.id="snd-panel";d.innerHTML=sndHtml(cc,PAGE==="test"?T.rev:S1.rev);var nt=document.getElementById("say-note");nt.parentNode.insertBefore(d,nt.nextSibling);}
+      return;}
+    if(!cc)return;
+    if(sa==="rec"){recToggle();}
+    else if(sa==="play"){playSound(sndKey(cc),false);}
+    else if(sa==="del"){if(!SNDARM){SNDARM=true;renderSnd();}else{delSound(sndKey(cc));}}
+    return;
+  }
+  if(t.hasAttribute("data-say")){speakCard(curCard(),t.getAttribute("data-say")==="slow");return;}
+  if(t.hasAttribute("data-pal")){setPal(t.getAttribute("data-pal"),true);return;}
+  if(t.hasAttribute("data-tk")){tkClick(t);return;}
+  if(t.hasAttribute("data-go")){go(t.getAttribute("data-go"));return;}
+  if(t.hasAttribute("data-act")){act(t.getAttribute("data-act"));return;}
+  if(t.hasAttribute("data-setview")){setView(t.getAttribute("data-setview"),true);return;}
+  if(t.hasAttribute("data-lot")){CUR=+t.getAttribute("data-lot");S1.i=0;S1.rev=false;renderLecons();return;}
+  if(t.hasAttribute("data-tlot")){
+    var tid=+t.getAttribute("data-tlot"),tk=TSEL.indexOf(tid);
+    if(tk>-1){TSEL.splice(tk,1);}else{TSEL.push(tid);}
+    renderChoix();return;
+  }
+  if(t.hasAttribute("data-tsel")){
+    TSEL=t.getAttribute("data-tsel")==="none"?[]:LOTS.filter(function(l){return started(l);}).map(function(l){return l.id;});
+    renderChoix();return;
+  }
+  if(t.hasAttribute("data-tstart")){
+    if(!TSEL.length){document.getElementById("tmsg").textContent="Choisis au moins un lot.";return;}
+    buildTest(TSEL.slice());go("test");return;
+  }
+  if(t.hasAttribute("data-src")){
+    var id=t.getAttribute("data-src");if(id===TGT)return;
+    var i=SRC.indexOf(id);
+    if(i>-1){if(SRC.length>1)SRC.splice(i,1);}else{SRC.push(id);}
+    langsChanged("");return;
+  }
+  if(t.hasAttribute("data-tgt")){
+    TGT=t.getAttribute("data-tgt");
+    SRC=SRC.filter(function(x){return x!==TGT;});
+    if(!SRC.length){SRC=["fr","en"].filter(function(x){return x!==TGT;}).slice(0,1);}
+    langsChanged("");return;
+  }
+  if(t.hasAttribute("data-swap")){
+    if(SRC.length!==1){document.getElementById("swap-msg").textContent="Garde une seule langue dans « Je vois » pour inverser le sens.";return;}
+    if(TGT==="su"){document.getElementById("swap-msg").textContent="Le soussou ne peut pas être une langue de départ.";return;}
+    var from=SRC[0];SRC=[TGT];TGT=from;
+    langsChanged("Sens inversé.");return;
+  }
+});
+document.addEventListener("change",function(e){
+  var el=e.target;
+  if(el.hasAttribute&&el.hasAttribute("data-snd-file")){
+    var f=el.files&&el.files[0],cd=curCard();el.value="";
+    if(!f||!cd)return;
+    if(f.type&&f.type.indexOf("audio/")!==0){sndNote("Ce fichier n'est pas un son.");return;}
+    saveSound(sndKey(cd),f);return;
+  }
+  if(el.hasAttribute&&el.hasAttribute("data-autosay")){AUTOSAY=el.checked;try{localStorage.setItem(SAYKEY,AUTOSAY?"1":"0");}catch(x){}return;}
+  var id=el.getAttribute&&el.getAttribute("data-id");
+  if(id){
+    doneMap[id]=el.checked;save(KEY,doneMap);
+    if(el.checked&&/^L\d+-6$/.test(id)){confetti();}
+    if(PAGE==="accueil"){renderProgress(false);}
+    if(PAGE==="accueil"){renderToday();renderPlanbox();}
+    if(PAGE==="lecons"){renderPlan();document.getElementById("lotpick").innerHTML=LOTS.map(function(x){return lotBtnHtml(x,"data-lot",x.id===CUR);}).join("");}
+    return;
+  }
+  var si=el.getAttribute&&el.getAttribute("data-su");
+  if(si!==null&&si!==undefined){
+    var c=lot().cards[+si];
+    suUser[c.fr]=el.value.trim();save(SUKEY,suUser);
+    document.getElementById("lotpick").innerHTML=LOTS.map(function(x){return lotBtnHtml(x,"data-lot",x.id===CUR);}).join("");
+    document.getElementById("sub").textContent=document.getElementById("sub").textContent.replace(/·[^·]*mots/,"· "+countTxt(lot()));
+    if(TGT==="su"){renderLearn();}
+  }
+});
+window.addEventListener("hashchange",function(){if(currentHash()!==PAGE){showPage(currentHash());}});
+
+/* Comptes et mode admin (service en ligne Supabase) */
+function sbOn(){return !!(SB_URL&&SB_KEY);}
+function rpc(name,body){
+  var h={"apikey":SB_KEY,"Content-Type":"application/json"};
+  if(SB_KEY.indexOf("eyJ")===0){h["Authorization"]="Bearer "+SB_KEY;}
+  return fetch(SB_URL.replace(/\/$/,"")+"/rest/v1/rpc/"+name,{method:"POST",headers:h,body:JSON.stringify(body||{})}).catch(function(){var er=new Error("net");er.code="NET";throw er;}).then(function(r){
+    return r.text().then(function(t){
+      var j=null;try{j=t?JSON.parse(t):null;}catch(e){}
+      if(!r.ok){var er=new Error((j&&j.message)||"Erreur");er.code=j&&j.code;er.status=r.status;throw er;}
+      return j;
+    });
+  });
+}
+function errMsg(e){
+  if(e&&e.code==="P0001")return e.message;
+  if(e&&e.code==="23505")return "Ce pseudo est déjà pris.";
+  if(e&&e.code==="NET")return "Pas de connexion au service. Vérifie ta connexion internet et réessaie.";
+  if(e&&(e.code==="PGRST202"||e.code==="42883"||e.status===404))return "La base de données n'est pas à jour : lance le fichier supabase-setup.sql dans Supabase (SQL Editor > Run), puis réessaie.";
+  return "Erreur du service"+(e&&(e.code||e.status)?" ("+(e.code||e.status)+")":"")+". Réessaie dans un moment.";
+}
+function loadSession(){try{SESSION=JSON.parse(localStorage.getItem(SESKEY)||"null");}catch(e){SESSION=null;}}
+function saveSession(){try{if(SESSION){localStorage.setItem(SESKEY,JSON.stringify(SESSION));}else{localStorage.removeItem(SESKEY);}}catch(e){}}
+function snapshot(){return {done:doneMap,su:suUser,langs:{src:SRC,tgt:TGT},palette:PAL,shift:SHIFT};}
+function syncSoon(){
+  if(!SESSION||!sbOn())return;
+  clearTimeout(syncTimer);
+  syncTimer=setTimeout(function(){
+    rpc("app_save_progress",{p_token:SESSION.token,p_progress:snapshot()}).catch(function(e){
+      if(e&&e.code==="P0001"){SESSION=null;saveSession();renderAccount();}
+    });
+  },1500);
+}
+function applyServer(p){
+  p=p||{};
+  var d=p.done||{};Object.keys(d).forEach(function(k){if(d[k]){doneMap[k]=true;}});
+  var s=p.su||{};Object.keys(s).forEach(function(k){if(s[k]&&suUser[k]===undefined){suUser[k]=s[k];}});
+  if(p.palette&&palOk(p.palette)){setPal(p.palette,false);try{localStorage.setItem(PALKEY,p.palette);}catch(e){}}
+  if(p.shift&&typeof p.shift==="object"&&!Object.keys(SHIFT).length){SHIFT=p.shift;try{localStorage.setItem(SHKEY,JSON.stringify(SHIFT));}catch(e){}}
+  var l=p.langs;
+  if(l&&l.tgt&&TGT_OK.indexOf(l.tgt)>-1&&l.src&&l.src.length){
+    TGT=l.tgt;SRC=l.src.filter(function(x){return SRC_OK.indexOf(x)>-1&&x!==TGT;});
+    if(!SRC.length){SRC=["fr","en"].filter(function(x){return x!==TGT;}).slice(0,1);}
+    T.started=false;S1.i=0;S1.rev=false;
+  }
+  try{
+    localStorage.setItem(KEY,JSON.stringify(doneMap));
+    localStorage.setItem(SUKEY,JSON.stringify(suUser));
+    localStorage.setItem(LKEY,JSON.stringify({src:SRC,tgt:TGT}));
+  }catch(e){}
+}
+function renderAccount(){
+  var el=document.getElementById("acct");
+  if(!sbOn()){el.innerHTML="";return;}
+  if(SESSION){
+    el.innerHTML='<span>Connecté : <b>'+esc(SESSION.username)+'</b>'+(SESSION.is_admin?'<span class="badge">admin</span>':'')+'</span>'+(SESSION.is_admin?'<button class="btn" type="button" data-go="admin">Admin</button>':'')+'<button class="btn" type="button" data-logout="1">Déconnexion</button>';
+  }else{
+    el.innerHTML='<button class="btn" type="button" data-go="login">Se connecter</button>';
+  }
+}
+function renderHomeTk(){var b=document.getElementById("home-tk");if(b){b.textContent=(SESSION&&SESSION.is_admin)?"Ouvrir les tickets":(SESSION?"Mes suggestions":"Se connecter et écrire une suggestion");}}
+function setLg(msg){document.getElementById("lg-out").textContent=msg;}
+function authDone(res){
+  SESSION={token:res.token,username:res.username,is_admin:!!res.is_admin};saveSession();
+  applyServer(res.progress);
+  try{localStorage.removeItem(SKIPKEY);}catch(e){}
+  renderAccount();syncSoon();var nx=NEXT||"accueil";NEXT=null;go(nx);
+}
+function doAuth(kind){
+  var u=document.getElementById("lg-user").value.trim(),p=document.getElementById("lg-pass").value;
+  if(!u||!p){setLg("Entre ton pseudo et ton mot de passe.");return;}
+  var b1=document.getElementById("lg-login"),b2=document.getElementById("lg-signup");
+  b1.disabled=true;b2.disabled=true;setLg("Un instant…");
+  rpc(kind==="signup"?"app_signup":"app_login",{p_username:u,p_password:p}).then(function(res){
+    b1.disabled=false;b2.disabled=false;
+    if(res&&res.error){setLg(res.error);return;}
+    document.getElementById("lg-pass").value="";setLg("");authDone(res);
+  }).catch(function(e){b1.disabled=false;b2.disabled=false;setLg(errMsg(e));});
+}
+function logout(){
+  var tok=SESSION&&SESSION.token;
+  SESSION=null;saveSession();renderAccount();
+  if(tok&&sbOn()){rpc("app_logout",{p_token:tok}).catch(function(){});}
+  go("accueil");
+}
+function fmtDate(iso){
+  var d=new Date(iso);if(isNaN(d))return "";
+  var h=d.getHours(),m=d.getMinutes();
+  return dlabel(d)+" "+(h<10?"0":"")+h+":"+(m<10?"0":"")+m;
+}
+function loadAdmin(){
+  if(!SESSION)return;
+  document.getElementById("ad-sub").textContent="Chargement…";
+  rpc("app_admin_overview",{p_token:SESSION.token}).then(function(data){adminData=data;renderAdmin();}).catch(function(e){
+    document.getElementById("ad-sub").textContent=errMsg(e);
+  });
+}
+function renderAdmin(){
+  var d=adminData||{tickets_open:0,users:[]},words=0;
+  LOTS.forEach(function(l){words+=l.cards.length;});
+  document.getElementById("ad-sub").textContent="Connecté en tant que "+SESSION.username;
+  document.getElementById("ad-sgn").textContent="("+(d.tickets_open||0)+" ouvert"+((d.tickets_open||0)>1?"s":"")+")";
+  document.getElementById("ad-us").innerHTML=d.users.length?d.users.map(function(u){
+    var done=(u.progress&&u.progress.done)?u.progress.done:{},n=0,fin=0;
+    Object.keys(done).forEach(function(k){if(done[k]){n++;if(/^L\d+-6$/.test(k)){fin++;}}});
+    return '<article class="sgcard"><div class="sghead"><b>'+esc(u.username)+(u.is_admin?'<span class="badge">admin</span>':'')+'</b><span>créé le '+esc(fmtDate(u.created_at))+'</span></div><p>'+n+' séances cochées · '+fin+' lots terminés · dernière activité '+esc(fmtDate(u.updated_at))+'</p></article>';
+  }).join(""):'<p class="empty">Aucun compte.</p>';
+  document.getElementById("ad-site").innerHTML='<p>Version '+esc(VERSION)+' · '+LOTS.length+' lots · '+words+' mots · '+(sbOn()?"service en ligne actif":"service en ligne non configuré")+'</p>';
+}
+/* Tickets de suggestions */
+function tkOut(m){document.getElementById("tk-out").textContent=m||"";}
+function loadTickets(){
+  if(!SESSION)return;
+  tkOut("");document.getElementById("tk-sub").textContent=SESSION.is_admin?"Tous les tickets":"Tes tickets : toi et l'admin pouvez y répondre.";
+  document.getElementById("tk-app").innerHTML='<p class="empty">Chargement…</p>';
+  rpc("app_ticket_list",{p_token:SESSION.token}).then(function(l){TK.list=l||[];renderTickets();}).catch(function(e){
+    document.getElementById("tk-app").innerHTML="";tkOut(errMsg(e));tkExpired(e);
+  });
+}
+function tkExpired(e){if(e&&e.code==="P0001"&&/Session/.test(e.message)){SESSION=null;saveSession();renderAccount();NEXT="tickets";go("login");}}
+function tkWait(t){
+  if(t.status==="closed")return "Clos";
+  if(SESSION.is_admin)return t.last_is_admin?"En attente de l'utilisateur":"À traiter";
+  return t.last_is_admin?"Réponse de l'admin":"En attente de l'admin";
+}
+function renderTickets(){
+  var el=document.getElementById("tk-app"),h="";
+  if(TK.view==="new"){
+    el.innerHTML='<form id="tk-new" autocomplete="off"><div class="field"><label for="tk-subject">Titre</label><input id="tk-subject" type="text" maxlength="80" placeholder="Une leçon sur les couleurs"></div><div class="field"><label for="tk-body">Ton message</label><textarea id="tk-body" maxlength="2000" rows="5" placeholder="J\'aimerais…"></textarea></div><div class="navrow two" style="margin-top:12px"><button class="btn primary" type="submit" id="tk-send">Envoyer</button><button class="btn" type="button" data-tk="back">Annuler</button></div></form>';
+    return;
+  }
+  if(TK.view==="thread"&&TK.cur){
+    var t=TK.cur,closed=t.status==="closed";
+    h+='<div class="navrow two"><button class="btn small" type="button" data-tk="back">Retour à la liste</button><button class="btn small" type="button" data-tk="refresh">Actualiser</button></div>';
+    h+='<section><h2>#'+t.id+' '+esc(t.subject)+' <span class="st '+t.status+'">'+(closed?"Clos":"Ouvert")+'</span></h2><p class="note">Par '+esc(t.username)+' · '+esc(fmtDate(t.created_at))+'</p></section>';
+    h+='<div class="stack">'+t.messages.map(function(m){
+      return '<article class="sgcard msg'+(m.is_admin?' adm':'')+'"><div class="sghead"><b>'+esc(m.author_name)+(m.is_admin?'<span class="badge">admin</span>':'')+'</b><span>'+esc(fmtDate(m.created_at))+'</span></div><p>'+esc(m.body)+'</p></article>';
+    }).join("")+'</div>';
+    if(closed){h+='<p class="note">Ce ticket est clos. Rouvre-le pour répondre.</p>';}
+    else{h+='<form id="tk-reply" autocomplete="off"><div class="field"><label for="tk-rbody">Ta réponse</label><textarea id="tk-rbody" maxlength="2000" rows="4"></textarea></div><div class="navrow" style="margin-top:12px"><button class="btn primary" type="submit" id="tk-rsend">Envoyer la réponse</button></div></form>';}
+    h+='<div class="navrow two"><button class="btn small" type="button" data-tk="status">'+(closed?"Rouvrir le ticket":"Clore le ticket")+'</button>'+(SESSION.is_admin?'<button class="btn small" type="button" data-tk="del">'+(TK.delArm?"Confirmer la suppression":"Supprimer")+'</button>':'')+'</div>';
+    el.innerHTML=h;return;
+  }
+  var list=(TK.list||[]).filter(function(t){return TK.filter==="all"||t.status===TK.filter;});
+  h+='<div class="navrow two">'+(SESSION.is_admin?'':'<button class="btn primary" type="button" data-tk="new">Nouvelle suggestion</button>')+'<button class="btn small" type="button" data-tk="refresh">Actualiser</button></div>';
+  h+='<div class="chips tkf">'+[["open","Ouverts"],["closed","Clos"],["all","Tous"]].map(function(f){return '<button class="chip'+(TK.filter===f[0]?' on':'')+'" type="button" data-tk="filter" data-v="'+f[0]+'" aria-pressed="'+(TK.filter===f[0])+'">'+f[1]+'</button>';}).join("")+'</div>';
+  h+=list.length?'<div class="stack">'+list.map(function(t){
+    return '<button class="sgcard tkrow" type="button" data-tk="open" data-id="'+t.id+'"><span class="t1"><b>#'+t.id+' '+esc(t.subject)+'</b><span class="st '+t.status+'">'+esc(tkWait(t))+'</span></span><span class="t2">'+(SESSION.is_admin?esc(t.username)+' · ':'')+t.messages+' message'+(t.messages>1?'s':'')+' · '+esc(fmtDate(t.updated_at))+'</span></button>';
+  }).join("")+'</div>':'<p class="empty">Aucun ticket ici.</p>';
+  el.innerHTML=h;
+}
+function openTicket(id){
+  tkOut("");
+  rpc("app_ticket_get",{p_token:SESSION.token,p_id:id}).then(function(t){TK.cur=t;TK.view="thread";TK.delArm=false;renderTickets();try{window.scrollTo(0,0);}catch(e){}}).catch(function(e){tkOut(errMsg(e));tkExpired(e);});
+}
+function tkClick(t){
+  var a=t.getAttribute("data-tk");
+  if(a==="open"){openTicket(+t.getAttribute("data-id"));return;}
+  if(a==="new"){TK.view="new";renderTickets();return;}
+  if(a==="back"){TK.view="list";TK.cur=null;loadTickets();return;}
+  if(a==="refresh"){if(TK.view==="thread"&&TK.cur){openTicket(TK.cur.id);}else{loadTickets();}return;}
+  if(a==="filter"){TK.filter=t.getAttribute("data-v");renderTickets();return;}
+  if(a==="status"&&TK.cur){
+    rpc("app_ticket_set_status",{p_token:SESSION.token,p_id:TK.cur.id,p_status:TK.cur.status==="closed"?"open":"closed"}).then(function(){openTicket(TK.cur.id);}).catch(function(e){tkOut(errMsg(e));tkExpired(e);});
+    return;
+  }
+  if(a==="del"&&TK.cur){
+    if(!TK.delArm){TK.delArm=true;renderTickets();return;}
+    rpc("app_ticket_delete",{p_token:SESSION.token,p_id:TK.cur.id}).then(function(){TK.view="list";TK.cur=null;loadTickets();}).catch(function(e){tkOut(errMsg(e));});
+  }
+}
+document.addEventListener("submit",function(e){
+  var f=e.target;
+  if(f.id==="tk-new"){
+    e.preventDefault();
+    var sj=document.getElementById("tk-subject").value.trim(),bd=document.getElementById("tk-body").value.trim();
+    if(!sj){tkOut("Entre un titre.");return;}
+    if(!bd){tkOut("Écris ton message.");return;}
+    document.getElementById("tk-send").disabled=true;tkOut("Envoi en cours…");
+    rpc("app_ticket_create",{p_token:SESSION.token,p_subject:sj,p_message:bd}).then(function(r){tkOut("");openTicket(r.id);}).catch(function(er){
+      document.getElementById("tk-send").disabled=false;tkOut(errMsg(er));tkExpired(er);
+    });
+  }else if(f.id==="tk-reply"){
+    e.preventDefault();
+    var m=document.getElementById("tk-rbody").value.trim();
+    if(!m){tkOut("Écris ta réponse.");return;}
+    document.getElementById("tk-rsend").disabled=true;tkOut("Envoi en cours…");
+    rpc("app_ticket_reply",{p_token:SESSION.token,p_id:TK.cur.id,p_message:m}).then(function(){tkOut("");openTicket(TK.cur.id);}).catch(function(er){
+      document.getElementById("tk-rsend").disabled=false;tkOut(errMsg(er));tkExpired(er);
+    });
+  }
+});
+document.getElementById("lg-form").addEventListener("submit",function(e){e.preventDefault();doAuth("login");});
+document.getElementById("lg-signup").addEventListener("click",function(){doAuth("signup");});
+document.getElementById("lg-skip").addEventListener("click",function(){NEXT=null;try{localStorage.setItem(SKIPKEY,"1");}catch(e){}go("accueil");});
+document.getElementById("ad-refresh").addEventListener("click",loadAdmin);
+
+/* Mise à jour */
+function setUpd(msg){document.getElementById("upd-msg").textContent=msg;}
+function checkUpdate(silent){
+  var btn=document.getElementById("upd-btn");
+  if(updNew){
+    if(IN_APP){try{localStorage.setItem(PINKEY,updNew);}catch(e){}location.replace("./"+updNew+".html"+location.hash);return;}
+    try{var u=new URL(location.href);u.searchParams.set("v",updNew);location.replace(u.toString());}
+    catch(e){location.reload();}
+    return;
+  }
+  if(!silent){btn.disabled=true;setUpd("Recherche en cours…");}
+  fetch(UPDATE_URL+"?t="+Date.now(),{cache:"no-store"}).then(function(r){
+    if(!r.ok)throw new Error("http");
+    return r.json();
+  }).then(function(j){
+    btn.disabled=false;
+    if(j&&j.version&&String(j.version)!==VERSION){
+      updNew=String(j.version);
+      btn.textContent="Installer la version "+updNew;
+      setUpd((j.notes?j.notes+" ":"")+"Nouvelle version disponible (tu as la "+VERSION+").");
+    }else if(!silent){
+      setUpd("Tu as la dernière version ("+VERSION+").");
+    }
+  }).catch(function(){
+    btn.disabled=false;
+    if(!silent){setUpd("Impossible de vérifier. Ouvre la page depuis son adresse web, avec le fichier version.json à côté.");}
+  });
+}
+
+(function(){
+  var pick=1;
+  LOTS.forEach(function(l){if(started(l)){pick=l.id;}});
+  CUR=pick;
+  initView();
+  initPal();
+  sndLoad();
+  loadSession();
+  renderAccount();
+  showPage(currentHash());
+  checkUpdate(true);
+  if(sbOn()){
+    if(SESSION){
+      rpc("app_me",{p_token:SESSION.token}).then(function(me){
+        if(!me){SESSION=null;saveSession();}
+        else{SESSION.username=me.username;SESSION.is_admin=!!me.is_admin;saveSession();applyServer(me.progress);syncSoon();}
+        renderAccount();showPage(PAGE);
+      }).catch(function(){});
+    }else{
+      var skipped=false;
+      try{skipped=localStorage.getItem(SKIPKEY)==="1";}catch(e){}
+      if(!skipped){go("login");}
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
