@@ -1,4 +1,4 @@
 {
-  "version": "2.16",
-  "notes": "Connexion obligatoire et évaluations des tests de phrases (1 essai, note visible)."
+  "version": "2.17",
+  "notes": "Évaluations en QCM et en cartes, à côté de S'entraîner."
 }
