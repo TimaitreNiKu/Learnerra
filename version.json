@@ -1,4 +1,4 @@
 {
-  "version": "2.13",
-  "notes": "Alarmes Android : l'Horloge s'ouvre avec l'heure préremplie."
+  "version": "2.15",
+  "notes": "Deux tests de petites phrases à déverrouiller (lot 5 et lot 10), déverrouillage par l'admin."
 }
