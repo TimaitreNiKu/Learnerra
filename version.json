@@ -1,4 +1,4 @@
 {
-  "version": "2.15",
-  "notes": "Deux tests de petites phrases à déverrouiller (lot 5 et lot 10), déverrouillage par l'admin."
+  "version": "2.16",
+  "notes": "Connexion obligatoire et évaluations des tests de phrases (1 essai, note visible)."
 }
